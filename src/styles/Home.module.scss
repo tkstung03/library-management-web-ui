@@ -1,0 +1,93 @@
+.collectioncounter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.collectioncountericon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+    background-color: #000000;
+    border-radius: 50%;
+    font-size: 30px;
+    color: white;
+}
+
+.titlepluscounter {
+    padding-left: 10px;
+    h2 {
+        margin: 0 0 10px;
+        font-size: 22px;
+        font-weight: 500;
+        line-height: 22px;
+    }
+
+    h3 {
+        margin: 0;
+        font: 400 16px / 16px 'Open Sans', Arial, Helvetica, sans-serif;
+    }
+}
+
+.books {
+    .collectioncountericon {
+        background-color: #93648d;
+    }
+
+    .titlepluscounter {
+        h2 {
+            color: #93648d;
+        }
+    }
+}
+.authors {
+    .collectioncountericon {
+        background-color: #4cc3d9;
+    }
+
+    .titlepluscounter {
+        h2 {
+            color: #4cc3d9;
+        }
+    }
+}
+.publishers {
+    .collectioncountericon {
+        background-color: #7bc8a4;
+    }
+
+    .titlepluscounter {
+        h2 {
+            color: #7bc8a4;
+        }
+    }
+}
+.readers {
+    .collectioncountericon {
+        background-color: #f16745;
+    }
+
+    .titlepluscounter {
+        h2 {
+            color: #f16745;
+        }
+    }
+}
+
+.collectioncounter + .collectioncounter:before {
+    -webkit-transform: skewX(-10deg);
+    -moz-transform: skewX(-10deg);
+    -ms-transform: skewX(-10deg);
+    -o-transform: skewX(-10deg);
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: skewX(-10deg);
+    width: 1px;
+    height: 100%;
+    background: #dbdbdb;
+}

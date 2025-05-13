@@ -1,0 +1,47 @@
+:root {
+    --primary-color: #77b748;
+    --text-color: #161823;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Times New Roman', Helvetica, Arial, sans-serif;
+    color: var(--text-color);
+}
+
+a {
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+ul,
+ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.sectionspace {
+    padding: 114px 0;
+}
+
+.innerbanner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+    h1 {
+        font-size: 50px;
+        font-weight: bold;
+        line-height: 60px;
+    }
+}
+
+.custom-quill {
+    background-color: white;
+}
