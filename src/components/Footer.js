@@ -42,7 +42,7 @@ function Footer() {
                 <div className="container">
                     <div className="row">
                         <div className="col">
-                            <span>{dayjs().year()} All Rights Reserved By © NHÓM 16</span>
+                            <span>{dayjs().year()} All Rights Reserved By © Tung</span>
                         </div>
                     </div>
                 </div>
