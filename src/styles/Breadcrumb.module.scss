@@ -1,0 +1,24 @@
+.breadcrumb {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--primary-color);
+    font: 500 16px / 30px 'Work Sans', Arial, Helvetica, sans-serif;
+    color: #fff;
+    li {
+        position: relative;
+        padding: 0 15px;
+    }
+    li + li ::before {
+        content: '/';
+        position: absolute;
+        top: 50%;
+        left: -2px;
+        transform: translateY(-50%);
+        color: #fff;
+    }
+    a {
+        display: block;
+        color: #fff;
+    }
+}
