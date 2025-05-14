@@ -1,5 +1,9 @@
 import httpRequest, { axiosPrivate } from '~/apis/configHttp';
 
+export const getCurrentUserLogin = () => {
+    return axiosPrivate.get('auth/current');
+};
+
 export const readerLogin = (values) => {
     return httpRequest.post('auth/login', values);
 };

@@ -1,9 +1,5 @@
 import { axiosPrivate } from '~/apis/configHttp';
 
-export const getCurrentUserLogin = () => {
-    return axiosPrivate.get('users/current');
-};
-
 export const createUser = (values) => {
     return axiosPrivate.post('users', values);
 };
