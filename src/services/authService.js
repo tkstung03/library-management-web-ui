@@ -1,4 +1,4 @@
-import httpRequest, { axiosPrivate } from '~/apis/configHttp.js';
+import httpRequest, { axiosPrivate } from '~/apis/configHttp';
 
 export const readerLogin = (values) => {
     return httpRequest.post('auth/login', values);

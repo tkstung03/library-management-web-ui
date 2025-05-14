@@ -11,6 +11,7 @@ import images from '~/assets';
 import { checkUserHasRequiredRole } from '~/utils/helper';
 import { ROLES } from '~/common/roleConstants';
 import useAuth from '~/hooks/useAuth';
+import { FaChartBar } from 'react-icons/fa';
 
 const { Header, Content, Footer, Sider } = Layout;
 
