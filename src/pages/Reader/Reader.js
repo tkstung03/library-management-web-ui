@@ -193,31 +193,26 @@ function Reader() {
         }
         setIsLoading(true);
         try {
-            const response = await printCards({
-                principalName: 'Kiều Xuân Thực',
-                managementUnit: 'Bộ Công Thương',
-                schoolName: 'Trường Đại học Công nghiệp Hà Nội',
-                readerIds: selectedRowKeys,
-            });
+        setIsLoading(true);
 
-            if (response.status === 200) {
-                // Chuyển đổi mảng byte thành Blob
-                const pdfBlob = new Blob([response.data], { type: 'application/pdf' });
-                const url = URL.createObjectURL(pdfBlob);
+        const response = await printCards({
+            readerIds: selectedRowKeys, // đúng định dạng backend yêu cầu
+        });
 
-                // Mở hoặc tải xuống file PDF
-                const newTab = window.open(url, '_blank');
-                newTab.focus(); // Đưa tab mới lên trước
-
-                // Giải phóng URL sau khi sử dụng
-                URL.revokeObjectURL(url);
-            }
-        } catch (error) {
-            const errorMessage = error.response?.data?.message || 'Có lỗi xảy ra khi xuất dữ liệu.';
-            messageApi.error(errorMessage);
-        } finally {
-            setIsLoading(false);
+        if (response.status === 200) {
+            const pdfBlob = new Blob([response.data], { type: 'application/pdf' });
+            const url = URL.createObjectURL(pdfBlob);
+            const newTab = window.open(url, '_blank');
+            newTab.focus();
+            URL.revokeObjectURL(url);
         }
+        } catch (error) {
+        const errorMessage = error.response?.data?.message || 'Có lỗi xảy ra khi xuất dữ liệu.';
+        messageApi.error(errorMessage);
+        } finally {
+        setIsLoading(false);
+        }
+
     };
 
     useEffect(() => {

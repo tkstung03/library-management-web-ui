@@ -100,12 +100,12 @@ const menuConfig = [
             { label: 'Lịch sử trả sách', key: '/admin/circulation/return-history' },
         ],
     },
-    {
-        label: 'Thống kê báo cáo',
-        key: '/admin/reports',
-        icon: <FaChartBar />,
-        children: [{ label: 'Báo cáo', key: '/admin/reports/statistics' }],
-    },
+    // {
+    //     label: 'Thống kê báo cáo',
+    //     key: '/admin/reports',
+    //     icon: <FaChartBar />,
+    //     children: [{ label: 'Báo cáo', key: '/admin/reports/statistics' }],
+    // },
     {
         label: 'Quản lý tin tức',
         key: '/admin/news-articles',

@@ -16,6 +16,7 @@ function Product({ className, data, messageApi }) {
 
     const bookUrl = `/books/${data.id}`;
 
+
     const handleAddToCart = async (id) => {
         if (isAuthenticated) {
             try {

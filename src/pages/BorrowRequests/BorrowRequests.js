@@ -95,7 +95,7 @@ function BorrowRequests() {
             key: 'borrowedDocuments',
             sorter: true,
             showSorterTooltip: false,
-            render: (text) => text.join(', '),
+            render: (text) => text?.join(', ') ?? '',
         },
         {
             title: '',
