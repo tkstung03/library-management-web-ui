@@ -25,7 +25,7 @@ function Post({ className, data, layout = 'vertical', contentVisible = true }) {
         >
             <div className={cx('postimg')}>
                 <Link to={`/news-articles/${data.titleSlug}`}>
-                    <img src={data.image || images.placeimgHorizontal} alt={data.id} />
+                    <img src={data.imageUrl || images.placeimgHorizontal} alt={data.id} />
                 </Link>
             </div>
 

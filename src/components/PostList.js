@@ -1,6 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Slider from 'react-slick';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+
 import classNames from 'classnames/bind';
 import styles from '~/styles/PostList.module.scss';
 import Post from './Post';
@@ -10,11 +14,10 @@ import { getNewsArticlesForUser } from '~/services/newsArticlesService';
 const cx = classNames.bind(styles);
 
 function PostList() {
-    const sliderRef = useRef(null);
+    const swiperRef = useRef(null);
     const navigate = useNavigate();
 
-    const [entityData, setEntityData] = useState(null);
-
+    const [entityData, setEntityData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [errorMessage, setErrorMessage] = useState(null);
 
@@ -36,21 +39,16 @@ function PostList() {
         fetchEntities();
     }, []);
 
-    const settings = {
-        dots: false,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 5,
-        slidesToScroll: 1,
-        swipeToSlide: true,
-    };
-
     const goToNextSlide = () => {
-        sliderRef.current.slickNext();
+        if (swiperRef.current && swiperRef.current.swiper) {
+            swiperRef.current.swiper.slideNext();
+        }
     };
 
     const goToPrevSlide = () => {
-        sliderRef.current.slickPrev();
+        if (swiperRef.current && swiperRef.current.swiper) {
+            swiperRef.current.swiper.slidePrev();
+        }
     };
 
     const handleViewAll = () => {
@@ -78,11 +76,20 @@ function PostList() {
                         ) : errorMessage ? (
                             <>{errorMessage}</>
                         ) : (
-                            <Slider ref={sliderRef} {...settings}>
-                                {entityData.map((data, index) => (
-                                    <Post className="mx-2 my-1" key={index} data={data} />
+                            <Swiper
+                                ref={swiperRef}
+                                modules={[Navigation]}
+                                navigation={false}  // Ẩn nút navigation của swiper, dùng nút custom của bạn
+                                slidesPerView={5}
+                                spaceBetween={10}
+                                loop={true}
+                            >
+                                {entityData.map((data) => (
+                                    <SwiperSlide key={data.id || data.titleSlug}>
+                                        <Post className="mx-2 my-1" data={data} />
+                                    </SwiperSlide>
                                 ))}
-                            </Slider>
+                            </Swiper>
                         )}
                     </div>
                 </div>

@@ -86,10 +86,9 @@ function NewsArticleDetail() {
                                 <Button block>Các bài đã đăng</Button>
                             </div>
                             {relatedArticles.map((data, index) => (
-                                <div className="col-12">
+                                <div className="col-12" key={data.id || index}>
                                     <Post
                                         className="mx-2 my-1"
-                                        key={index}
                                         data={data}
                                         layout="horizontal"
                                         contentVisible={false}

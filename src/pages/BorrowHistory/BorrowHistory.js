@@ -97,9 +97,13 @@ function BorrowHistory() {
             showSorterTooltip: false,
         },
         {
-            title: 'Số sách',
+            title: 'Tên sách',
             dataIndex: 'books',
-            key: 'books',
+            render: (books) => {
+            if (!books || books.length === 0) return '-';
+            // Hiển thị tiêu đề các sách cách nhau dấu phẩy
+            return books.map((book) => book.title).join(', ');
+        },
         },
         {
             title: 'Ngày mượn',
