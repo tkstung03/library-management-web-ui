@@ -53,13 +53,13 @@ function Publisher() {
     };
 
     const handleChangePage = (newPage) => {
-        setFilters((prev) => ({ ...prev, pageNum: newPage }));
+        setFilters((prev) => ({ ...prev, pageNumb: newPage }));
     };
 
     const handleChangeRowsPerPage = (current, size) => {
         setFilters((prev) => ({
             ...prev,
-            pageNum: 1,
+            pageNumb: 1,
             pageSize: size,
         }));
     };
@@ -330,7 +330,7 @@ function Publisher() {
                 loading={isLoading}
                 onChange={handleSortChange}
                 pagination={{
-                    current: filters.pageNum,
+                    current: filters.pageNumb,
                     pageSize: filters.pageSize,
                     total: meta.totalElements,
                     onChange: handleChangePage,

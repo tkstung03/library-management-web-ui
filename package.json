@@ -27,6 +27,7 @@
         "react-slick": "^0.30.2",
         "recharts": "^2.13.3",
         "slick-carousel": "^1.8.1",
+        "swiper": "^11.2.6",
         "web-vitals": "^2.1.4",
         "yup": "^1.4.0"
     },
@@ -37,11 +38,10 @@
         "sass": "^1.79.3"
     },
     "scripts": {
-      "start": "craco start",
-      "build": "craco build",
-      "test": "craco test"
-},
-
+        "start": "craco start",
+        "build": "craco build",
+        "test": "craco test"
+    },
     "eslintConfig": {
         "extends": [
             "react-app",

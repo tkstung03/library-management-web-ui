@@ -18,13 +18,13 @@ function VisitorStatistics() {
     const [messageApi, contextHolder] = message.useMessage();
 
     const handleChangePage = (newPage) => {
-        setFilters((prev) => ({ ...prev, pageNum: newPage }));
+        setFilters((prev) => ({ ...prev, pageNumb: newPage }));
     };
 
     const handleChangeRowsPerPage = (current, size) => {
         setFilters((prev) => ({
             ...prev,
-            pageNum: 1,
+            pageNumb: 1,
             pageSize: size,
         }));
     };
@@ -47,7 +47,7 @@ function VisitorStatistics() {
                 ...prev,
                 startDate,
                 endDate,
-                pageNum: 1,
+                pageNumb: 1,
             }));
         } else {
             messageApi.error('Vui lòng chọn cả ngày bắt đầu và ngày kết thúc!');
@@ -172,7 +172,7 @@ function VisitorStatistics() {
                 loading={isLoading}
                 onChange={handleSortChange}
                 pagination={{
-                    current: filters.pageNum,
+                    current: filters.pageNumb,
                     pageSize: filters.pageSize,
                     total: meta.totalElements,
                     onChange: handleChangePage,

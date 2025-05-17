@@ -35,13 +35,13 @@ function User() {
     const [messageApi, contextHolder] = message.useMessage();
 
     const handleChangePage = (newPage) => {
-        setFilters((prev) => ({ ...prev, pageNum: newPage }));
+        setFilters((prev) => ({ ...prev, pageNumb: newPage }));
     };
 
     const handleChangeRowsPerPage = (current, size) => {
         setFilters((prev) => ({
             ...prev,
-            pageNum: 1,
+            pageNumb: 1,
             pageSize: size,
         }));
     };
@@ -58,7 +58,7 @@ function User() {
     const handleSearch = (searchBy, keyword) => {
         setFilters((prev) => ({
             ...prev,
-            pageNum: 1,
+            pageNumb: 1,
             searchBy: searchBy || activeFilterOption,
             keyword: keyword || searchInput,
         }));
@@ -203,7 +203,7 @@ function User() {
                 loading={isLoading}
                 onChange={handleSortChange}
                 pagination={{
-                    current: filters.pageNum,
+                    current: filters.pageNumb,
                     pageSize: filters.pageSize,
                     total: meta.totalElements,
                     onChange: handleChangePage,

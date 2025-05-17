@@ -1,9 +1,12 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+
+import { Navigation } from 'swiper/modules';
 
 import Product from './Product';
 import SectionHeader from './SectionHeader';
@@ -16,33 +19,14 @@ import queryString from 'query-string';
 const cx = classNames.bind(styles);
 
 function ProductList({ filters, title, subtitle, messageApi }) {
-    const sliderRef = useRef(null);
     const navigate = useNavigate();
 
     const [entityData, setEntityData] = useState(null);
-
     const [isLoading, setIsLoading] = useState(true);
     const [errorMessage, setErrorMessage] = useState(null);
 
-    const goToNextSlide = () => {
-        sliderRef.current.slickNext();
-    };
-
-    const goToPrevSlide = () => {
-        sliderRef.current.slickPrev();
-    };
-
     const handleViewAll = () => {
         navigate('/books');
-    };
-
-    const settings = {
-        dots: false,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 5,
-        slidesToScroll: 1,
-        swipeToSlide: true,
     };
 
     useEffect(() => {
@@ -72,9 +56,8 @@ function ProductList({ filters, title, subtitle, messageApi }) {
                         <SectionHeader
                             subtitle={subtitle}
                             title={title}
-                            onPrev={goToPrevSlide}
-                            onNext={goToNextSlide}
                             onViewAll={handleViewAll}
+                            // Bạn có thể điều chỉnh các nút điều hướng thủ công nếu cần
                         />
                     </div>
                 </div>
@@ -85,11 +68,21 @@ function ProductList({ filters, title, subtitle, messageApi }) {
                         ) : errorMessage ? (
                             <>{errorMessage}</>
                         ) : (
-                            <Slider ref={sliderRef} {...settings}>
+                            <Swiper
+                                modules={[Navigation]}
+                                spaceBetween={20}
+                                slidesPerView={5}
+                                autoplay
+                                navigation
+                                grabCursor
+                                className={cx('swiper-container')}
+                            >
                                 {entityData.map((data, index) => (
-                                    <Product className="mx-2 my-1" key={index} data={data} messageApi={messageApi} />
+                                    <SwiperSlide key={index}>
+                                        <Product className="mx-2 my-1" data={data} messageApi={messageApi} />
+                                    </SwiperSlide>
                                 ))}
-                            </Slider>
+                            </Swiper>
                         )}
                     </div>
                 </div>

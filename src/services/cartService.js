@@ -9,7 +9,7 @@ export const getCartDetails = (params) => {
 };
 
 export const removeFromCart = (id) => {
-    return axiosPrivate.delete(`carts/remove?cartDetailId=${id}`);
+    return axiosPrivate.delete(`carts/remove?cartDetailIds=${id}`);
 };
 
 export const clearCart = () => {

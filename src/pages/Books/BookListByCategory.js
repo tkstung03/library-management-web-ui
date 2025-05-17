@@ -34,13 +34,13 @@ function BookListByCategory() {
     const [errorMessage, setErrorMessage] = useState(null);
 
     const handleChangePage = (newPage) => {
-        setFilters((prev) => ({ ...prev, pageNum: newPage }));
+        setFilters((prev) => ({ ...prev, pageNumb: newPage }));
     };
 
     const handleChangeRowsPerPage = (current, size) => {
         setFilters((prev) => ({
             ...prev,
-            pageNum: 1,
+            pageNumb: 1,
             pageSize: size,
         }));
     };
@@ -57,7 +57,7 @@ function BookListByCategory() {
     const handleSearch = (searchBy, keyword) => {
         setFilters((prev) => ({
             ...prev,
-            pageNum: 1,
+            pageNumb: 1,
             searchBy: searchBy || activeFilterOption,
             keyword: keyword || searchInput,
         }));
@@ -72,14 +72,14 @@ function BookListByCategory() {
                 if (selectedCategoryGroupId > 0) {
                     setFilters((prev) => ({
                         ...prev,
-                        pageNum: 1,
+                        pageNumb: 1,
                         categoryGroupId: selectedCategoryGroupId,
                         categoryId: null,
                     }));
                 } else {
                     setFilters((prev) => ({
                         ...prev,
-                        pageNum: 1,
+                        pageNumb: 1,
                         categoryGroupId: null,
                         categoryId: null,
                     }));
@@ -88,7 +88,7 @@ function BookListByCategory() {
                 const selectedCategoryId = selectedKey.split('-')[1];
                 setFilters((prev) => ({
                     ...prev,
-                    pageNum: 1,
+                    pageNumb: 1,
                     categoryId: selectedCategoryId,
                     categoryGroupId: null,
                 }));
@@ -404,7 +404,7 @@ function BookListByCategory() {
                         onChange={handleSortChange}
                         rowSelection={rowSelection}
                         pagination={{
-                            current: filters.pageNum,
+                            current: filters.pageNumb,
                             pageSize: filters.pageSize,
                             total: meta.totalElements,
                             onChange: handleChangePage,
