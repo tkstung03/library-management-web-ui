@@ -6,7 +6,7 @@ const searchFieldOptions = [
     { label: 'Nhan đề', value: 'title' },
     { label: 'Tác giả', value: 'author' },
     { label: 'Nhà xuất bản', value: 'publisher' },
-    { label: 'Năm xuất bản', value: 'publicationYear' },
+    { label: 'Năm xuất bản', value: 'publishingYear' },
     { label: 'Số ISBN', value: 'isbn' },
 ];
 
@@ -16,17 +16,17 @@ const conditionOptions = [
 ];
 
 const comparisonOptions = [
-    { value: 'EQUALS', label: 'Chính xác' },
+    { value: 'EQUALS', label: 'Chính xác', },
     { value: 'NOT_EQUALS', label: 'Không chính xác' },
-    { value: 'GREATER_THAN', label: 'Lớn hơn' },
-    { value: 'LESS_THAN', label: 'Nhỏ hơn' },
+    // { value: 'GREATER_THAN', label: 'Lớn hơn' },
+    // { value: 'LESS_THAN', label: 'Nhỏ hơn' },
     { value: 'LIKE', label: 'Chứa' },
     { value: 'IN', label: 'Nằm trong' },
 ];
 
 const defaultValue = {
     field: searchFieldOptions[0].value,
-    operator: comparisonOptions[4].value,
+    operator: comparisonOptions[2].value,
     value: '',
     joinType: conditionOptions[0].value,
     values: [],

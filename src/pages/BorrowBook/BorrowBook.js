@@ -16,6 +16,7 @@ import {
     getBorrowReceiptDetails,
     getBorrowReceipts,
     printBorrowReceipts,
+    printOverdueBorrowReceipts,
 } from '~/services/borrowReceiptService';
 import { bookBorrowReceiptMapping } from '~/common/borrowConstants';
 
@@ -129,7 +130,7 @@ function BorrowBook() {
         setIsLoading(true);
         try {
             const response = await printBorrowReceipts({
-                schoolName: 'Trường Đại học Công nghiệp Hà Nội',
+            //    schoolName: 'Trường Đại học Công nghiệp Hà Nội',
                 borrowIds: selectedRowKeys,
             });
 
@@ -140,7 +141,7 @@ function BorrowBook() {
                 const newTab = window.open(url, '_blank');
                 newTab.focus();
 
-                URL.revokeObjectURL(url);
+
             }
         } catch (error) {
             const errorMessage = error.response?.data?.message || 'Có lỗi xảy ra khi xuất dữ liệu.';
@@ -154,7 +155,7 @@ function BorrowBook() {
         setIsLoading(true);
         try {
             const response = await printBorrowReceipts({
-                schoolName: 'Trường Đại học Công nghiệp Hà Nội',
+                //schoolName: 'Trường Đại học Công nghiệp Hà Nội',
                 borrowIds: [],
             });
 
@@ -165,7 +166,7 @@ function BorrowBook() {
                 const newTab = window.open(url, '_blank');
                 newTab.focus();
 
-                URL.revokeObjectURL(url);
+              //  URL.revokeObjectURL(url);
             }
         } catch (error) {
             const errorMessage = error.response?.data?.message || 'Có lỗi xảy ra khi xuất dữ liệu.';
@@ -178,10 +179,7 @@ function BorrowBook() {
     const handlePrintOverdueList = async () => {
         setIsLoading(true);
         try {
-            const response = await printBorrowReceipts({
-                schoolName: 'Trường Đại học Công nghiệp Hà Nội',
-                overdueOnly: true,
-            });
+            const response = await printOverdueBorrowReceipts();
 
             if (response.status === 200) {
                 const pdfBlob = new Blob([response.data], { type: 'application/pdf' });
@@ -190,7 +188,7 @@ function BorrowBook() {
                 const newTab = window.open(url, '_blank');
                 newTab.focus();
 
-                URL.revokeObjectURL(url);
+                //URL.revokeObjectURL(url);
             }
         } catch (error) {
             const errorMessage = error.response?.data?.message || 'Có lỗi xảy ra khi xuất dữ liệu.';
@@ -354,6 +352,7 @@ function BorrowBook() {
         {
             title: '',
             key: 'action',
+            fixed: 'right',
             render: (_, record) => (
                 <Space>
                     <Button type="text" icon={<MdOutlineModeEdit />} onClick={() => navigate(`edit/${record.id}`)} />

@@ -63,6 +63,7 @@ function Holidays() {
 
     const handleCreateEntity = async (values) => {
         try {
+
             const response = await addHoliday(values);
             if (response.status === 201) {
                 const { data, message } = response.data.data;
@@ -79,7 +80,13 @@ function Holidays() {
 
     const handleUpdateEntity = async (values) => {
         try {
-            const response = await updateHoliday(editingItem.id, values);
+
+              const payload = {
+                    ...values,
+                    startDate: values.startDate.format('YYYY-MM-DD'), // loại bỏ giờ và timezone
+                    endDate: values.endDate.format('YYYY-MM-DD'),
+                };  
+            const response = await updateHoliday(editingItem.id, payload);
             if (response.status === 200) {
                 const { data, message } = response.data.data;
                 messageApi.success(message);

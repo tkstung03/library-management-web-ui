@@ -81,7 +81,7 @@ function BorrowBookForm() {
             }
 
             if (response.status === 200 || response.status === 201) {
-                messageApi.success(response.data.data.message);
+               navigate("/admin/circulation/borrow")
             }
         } catch (error) {
             handleError(error, formik, messageApi);
