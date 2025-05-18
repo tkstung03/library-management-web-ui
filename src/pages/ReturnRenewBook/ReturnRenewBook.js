@@ -232,7 +232,8 @@ function ReturnRenewBook() {
         },
         {
             title: 'Thao tác',
-            key: 'action',
+           key: 'action',
+            fixed: 'right',
             render: (text, record) => (
                 <Space>
                     <Button type="link" onClick={() => handleReturnBook(record.id)}>

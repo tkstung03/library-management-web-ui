@@ -43,6 +43,7 @@ const defaultValue = {
     series: '',
     image: null,
     imageUrl: null,
+    pdfFile: null,
 };
 
 const validationSchema = yup.object({
@@ -463,6 +464,25 @@ const BookDefinitionForm = ({ mode }) => {
                     <FormTextArea id="summary" label="Tóm tắt" formik={formik} className="col-md-6" />
 
                     <FormTextArea id="keywords" label="Từ khóa tìm kiếm" formik={formik} className="col-md-6" />
+
+                    <div className="col-md-12">
+                        <label htmlFor="pdfFile" className="form-label">
+                            Tài liệu PDF
+                        </label>
+                        <input
+                            id="pdfFile"
+                            name="pdfFile"
+                            type="file"
+                            accept="application/pdf"
+                            className="form-control"
+                            onChange={(event) => {
+                                formik.setFieldValue('pdfFile', event.currentTarget.files[0]);
+                            }}
+                        />
+                        {formik.touched.pdfFile && formik.errors.pdfFile && (
+                            <div className="text-danger">{formik.errors.pdfFile}</div>
+                        )}
+                    </div>
 
                     <div className="col-md-12 text-end">
                         <Space>

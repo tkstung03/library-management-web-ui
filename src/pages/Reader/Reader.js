@@ -193,26 +193,25 @@ function Reader() {
         }
         setIsLoading(true);
         try {
-        setIsLoading(true);
+            setIsLoading(true);
 
-        const response = await printCards({
-            readerIds: selectedRowKeys, // đúng định dạng backend yêu cầu
-        });
+            const response = await printCards({
+                readerIds: selectedRowKeys, // đúng định dạng backend yêu cầu
+            });
 
-        if (response.status === 200) {
-            const pdfBlob = new Blob([response.data], { type: 'application/pdf' });
-            const url = URL.createObjectURL(pdfBlob);
-            const newTab = window.open(url, '_blank');
-            newTab.focus();
-            URL.revokeObjectURL(url);
-        }
+            if (response.status === 200) {
+                const pdfBlob = new Blob([response.data], { type: 'application/pdf' });
+                const url = URL.createObjectURL(pdfBlob);
+                const newTab = window.open(url, '_blank');
+                newTab.focus();
+                URL.revokeObjectURL(url);
+            }
         } catch (error) {
-        const errorMessage = error.response?.data?.message || 'Có lỗi xảy ra khi xuất dữ liệu.';
-        messageApi.error(errorMessage);
+            const errorMessage = error.response?.data?.message || 'Có lỗi xảy ra khi xuất dữ liệu.';
+            messageApi.error(errorMessage);
         } finally {
-        setIsLoading(false);
+            setIsLoading(false);
         }
-
     };
 
     useEffect(() => {
@@ -295,12 +294,16 @@ function Reader() {
             title: 'Thống kê',
             children: [
                 {
-                    title: 'Phiếu mượn',
+                    title: 'PM chưa trả',
                     dataIndex: 'currentBorrowedBooks',
+                    width:40,
+                    align: 'center',
                     key: 'currentBorrowedBooks',
                 },
                 {
                     title: 'Vào thư viện',
+                    width:40,
+                    align: 'center',
                     dataIndex: 'libraryVisitCount',
                     key: 'libraryVisitCount',
                 },
@@ -309,6 +312,7 @@ function Reader() {
         {
             title: '',
             key: 'action',
+            fixed: 'right',
             render: (_, record) => (
                 <Space>
                     <Button type="text" icon={<MdOutlineModeEdit />} onClick={() => showEditModal(record)} />

@@ -189,7 +189,8 @@ function SlideConfig() {
         },
         {
             title: '',
-            key: 'action',
+           key: 'action',
+            fixed: 'right',
             render: (_, record) => (
                 <Space>
                     <Button type="text" icon={<MdOutlineModeEdit />} onClick={() => showEditModal(record)} />

@@ -249,7 +249,8 @@ function InwardBookForm() {
         },
         {
             title: '',
-            key: 'action',
+           key: 'action',
+            fixed: 'right',
             render: (_, record) => (
                 <Button type="text" danger icon={<FaRegTrashAlt />} onClick={() => handleDeleteColum(record.id)} />
             ),

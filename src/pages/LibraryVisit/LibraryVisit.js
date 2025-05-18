@@ -162,7 +162,8 @@ function LibraryVisit() {
         },
         {
             title: '',
-            key: 'action',
+           key: 'action',
+            fixed: 'right',
             render: (_, record) => (
                 <Button
                     type="text"

@@ -72,7 +72,10 @@ function ProductList({ filters, title, subtitle, messageApi }) {
                                 modules={[Navigation]}
                                 spaceBetween={20}
                                 slidesPerView={5}
-                                autoplay
+                                autoplay={{
+                                    delay: 2500,
+                                    disableOnInteraction: false,
+                                }}
                                 navigation
                                 grabCursor
                                 className={cx('swiper-container')}

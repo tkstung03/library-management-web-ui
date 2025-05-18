@@ -99,7 +99,8 @@ function BorrowRequests() {
         },
         {
             title: '',
-            key: 'action',
+           key: 'action',
+            fixed: 'right',
             render: (_, record) => (
                 <Link to={`/admin/circulation/borrow/new?cartId=${record.cartId}`}>Lập phiếu mượn</Link>
             ),

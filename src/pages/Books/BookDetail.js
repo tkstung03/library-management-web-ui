@@ -11,6 +11,8 @@ import SocialIcons from '~/components/SocialIcons';
 import { getBookDetailForUser } from '~/services/bookDefinitionService';
 import { addToCart } from '~/services/cartService';
 import useAuth from '~/hooks/useAuth';
+import { RESOURCE_URL } from '~/common/commonConstants';
+import { Color } from 'antd/es/color-picker';
 
 const cx = classNames.bind(styles);
 
@@ -181,6 +183,23 @@ function BookDetail() {
                                                 <span>ISBN:</span>
                                                 <span>{entityData.isbn || 'N/A'}</span>
                                             </li>
+
+                                            {entityData.pdfUrl && (
+                                                <li>
+                                                    <span>Xem trước PDF: </span>
+                                                    <span>
+                                                        {' '}
+                                                        <a
+                                                            href={RESOURCE_URL + entityData.pdfUrl}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            style={{color:'red'}}
+                                                        >
+                                                            TẠI ĐÂY
+                                                        </a>
+                                                    </span>
+                                                </li>
+                                            )}
                                         </ul>
                                     </div>
                                 </div>

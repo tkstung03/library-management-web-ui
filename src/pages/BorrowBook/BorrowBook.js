@@ -351,8 +351,8 @@ function BorrowBook() {
         },
         {
             title: '',
-            key: 'action',
-            fixed: 'right',
+           key: 'action',
+                      fixed: 'right',
             render: (_, record) => (
                 <Space>
                     <Button type="text" icon={<MdOutlineModeEdit />} onClick={() => navigate(`edit/${record.id}`)} />
