@@ -4,6 +4,7 @@ import queryString from 'query-string';
 import { Button, Col, DatePicker, Flex, Form, message, Row, Space, Table } from 'antd';
 import { INITIAL_FILTERS, INITIAL_META } from '~/common/commonConstants';
 import { getLibraryVisits } from '~/services/libraryVisitService';
+import { getLibraryVisitReportPdf } from '~/services/libraryVisitService';
 
 function VisitorStatistics() {
     const naviagate = useNavigate();
@@ -36,6 +37,76 @@ function VisitorStatistics() {
             sortBy: sorter.field,
             isAscending: sortOrder,
         }));
+    };
+
+    const handlePrintReport = async () => {
+        if (!filters.startDate || !filters.endDate) {
+            messageApi.error('Vui lòng chọn ngày bắt đầu và kết thúc trước khi in báo cáo.');
+            return;
+        }
+
+        try {
+            const query = queryString.stringify({
+                startDate: filters.startDate,
+                endDate: filters.endDate,
+            });
+            const response = await getLibraryVisitReportPdf(query);
+
+            const data = response?.data?.data || [];
+
+            const newWindow = window.open('', '_blank');
+            const htmlContent = `
+            <html>
+                <head>
+                    <title>Báo cáo lượt vào thư viện</title>
+                    <style>
+                        body { font-family: Arial, sans-serif; padding: 20px; }
+                        h2 { text-align: center; }
+                        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+                        th, td { border: 1px solid #000; padding: 8px; text-align: center; }
+                        th { background-color: #f0f0f0; }
+                    </style>
+                </head>
+                <body>
+                    <h2>BÁO CÁO LƯỢT VÀO THƯ VIỆN</h2>
+                    <p>Ngày từ: ${filters.startDate} đến ${filters.endDate}</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Số thẻ</th>
+                                <th>Họ tên</th>
+                                <th>Loại thẻ</th>
+                                <th>Giờ vào</th>
+                                <th>Giờ ra</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${data
+                                .map(
+                                    (item, index) => `
+                                <tr>
+                                    <td>${index + 1}</td>
+                                    <td>${item.cardNumber}</td>
+                                    <td>${item.fullName}</td>
+                                    <td>${item.cardType}</td>
+                                    <td>${item.entryTime}</td>
+                                    <td>${item.exitTime || ''}</td>
+                                </tr>
+                            `,
+                                )
+                                .join('')}
+                        </tbody>
+                    </table>
+                </body>
+            </html>
+        `;
+            newWindow.document.write(htmlContent);
+            newWindow.document.close();
+        } catch (error) {
+            messageApi.error('Lỗi khi in báo cáo!');
+            console.error(error);
+        }
     };
 
     const onFinish = (values) => {
@@ -155,7 +226,7 @@ function VisitorStatistics() {
                                 <Button type="primary" htmlType="submit">
                                     Thống kê
                                 </Button>
-                                <Button>In báo cáo</Button>
+                                <Button onClick={handlePrintReport}>In báo cáo</Button>
                                 <Button>Xuất file</Button>
                             </Space>
                         </Form.Item>

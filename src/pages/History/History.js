@@ -145,7 +145,7 @@ function History() {
     return (
         <div>
             <Flex justify="space-between" align="center">
-                <h2>Nhật ký truy cập</h2>
+                <h2>Nhật ký hoạt động</h2>
                 <Space>
                     <DatePicker
                         name="startDate"

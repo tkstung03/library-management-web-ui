@@ -113,7 +113,7 @@ const menuConfig = [
         roles: [ROLES.ManageNewsArticle],
     },
     {
-        label: 'Lịch sử truy cập',
+        label: 'Lịch sử hoạt động',
         key: '/admin/histories',
         icon: <FaHistory />,
         roles: [ROLES.ManageLog],

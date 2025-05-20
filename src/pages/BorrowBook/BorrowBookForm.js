@@ -81,7 +81,9 @@ function BorrowBookForm() {
             }
 
             if (response.status === 200 || response.status === 201) {
-               navigate("/admin/circulation/borrow")
+                setTimeout(() => {
+                    navigate('/admin/circulation/borrow');
+                }, 1500);
             }
         } catch (error) {
             handleError(error, formik, messageApi);
@@ -271,7 +273,7 @@ function BorrowBookForm() {
         },
         {
             title: '',
-           key: 'action',
+            key: 'action',
             fixed: 'right',
             render: (_, record) => (
                 <Button

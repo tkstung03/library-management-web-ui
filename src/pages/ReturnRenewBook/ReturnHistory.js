@@ -1,16 +1,25 @@
 import { useEffect, useState } from 'react';
-import { Button, DatePicker, Flex, Input, message, Select, Space, Table } from 'antd';
+import { Button, DatePicker, Flex, Input, message, Select, Space, Table, Tag } from 'antd';
 import queryString from 'query-string';
 import dayjs from 'dayjs';
 import { INITIAL_FILTERS, INITIAL_META } from '~/common/commonConstants';
 import { getBookBorrows } from '~/services/bookBorrowService';
 import { bookBorrowReceiptMapping } from '~/common/borrowConstants';
+import { bookStatusMapping } from '~/common/bookConstants';
 
 const options = [
     { value: 'receiptNumber', label: 'Số phiếu mượn' },
     { value: 'cardNumber', label: 'Số thẻ bạn đọc' },
     { value: 'fullName', label: 'Tên bạn đọc' },
 ];
+
+const bookStatusColors = {
+    USABLE: 'green',
+    DAMAGED: 'volcano',
+    OUTDATED: 'orange',
+    INFESTED: 'red',
+    OBSOLETE_PROGRAM: 'blue',
+};
 
 function ReturnHistory() {
     const [meta, setMeta] = useState(INITIAL_META);
@@ -185,6 +194,14 @@ function ReturnHistory() {
             sorter: true,
             showSorterTooltip: false,
             render: (status) => bookBorrowReceiptMapping[status],
+        },
+        {
+            title: 'Tình trạng sách',
+            dataIndex: 'bookStatus',
+            key: 'bookStatus',
+            render: (status) => (
+                <Tag color={bookStatusColors[status] || 'default'}>{bookStatusMapping[status] || status}</Tag>
+            ),
         },
         // {
         //     title: '',

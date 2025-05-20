@@ -19,3 +19,9 @@ export const getLibraryVisitById = (id) => {
 export const getLibraryVisits = (params) => {
     return axiosPrivate.get(`library-visits?${params}`);
 };
+export const getLibraryVisitReportPdf = (params) => {
+    return axiosPrivate.get(`library-visits/export-pdf?${params}`, {
+        responseType: 'blob', 
+    });
+};
+

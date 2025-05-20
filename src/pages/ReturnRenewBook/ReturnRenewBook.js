@@ -223,7 +223,7 @@ function ReturnRenewBook() {
                     options={[
                         { value: 'USABLE', label: 'Sử dụng được' },
                         { value: 'DAMAGED', label: 'Rách nát' },
-                        { value: 'OUTDATED', label: 'Lạc hậu' },
+                        { value: 'OUTDATED', label: 'Lỗi thời' },
                         { value: 'INFESTED', label: 'Mối mọt' },
                         { value: 'OBSOLETE_PROGRAM', label: 'Chương trình cũ' },
                     ]}

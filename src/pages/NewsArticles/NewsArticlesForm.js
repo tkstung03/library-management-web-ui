@@ -104,8 +104,14 @@ function NewsArticlesForm() {
 
             if (response.status === 200) {
                 messageApi.success(response.data.data.message);
+                setTimeout(() => {
+                    navigate('/admin/news-articles');
+                }, 1500);
             } else if (response.status === 201) {
                 messageApi.success(response.data.data.message);
+                setTimeout(() => {
+                    navigate('/admin/news-articles');
+                }, 1500);
             }
         } catch (error) {
             handleError(error, formik, messageApi);
