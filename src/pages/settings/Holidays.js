@@ -160,7 +160,7 @@ function Holidays() {
             key: 'id',
         },
         {
-            title: 'Tên kỳ nghỉ',
+            title: 'Tên ngày nghỉ',
             dataIndex: 'name',
             key: 'name',
         },
@@ -304,7 +304,7 @@ function Holidays() {
             </Modal>
 
             <Flex className="py-2" wrap justify="space-between" align="center">
-                <h2>Lịch nghỉ lễ</h2>
+                <h2>Thông báo nghỉ</h2>
                 <Button type="primary" onClick={showAddModal}>
                     Thêm mới
                 </Button>

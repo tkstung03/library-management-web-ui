@@ -1,6 +1,6 @@
 import { Button, Col, DatePicker, Form } from 'antd';
 import { Input, InputNumber, Modal, Row, Select } from 'antd';
-import { cardPenaltyForm } from '~/common/cardConstants';
+import { cardPunishmentForm } from '~/common/cardConstants';
 
 function ViolationForm({
     title,
@@ -75,12 +75,12 @@ function ViolationForm({
                     <Col span={12}>
                         <Form.Item
                             label="Hình thức phạt"
-                            name="penaltyForm"
+                            name="punishmentForm"
                             hasFeedback
                             rules={[{ required: true, message: 'Vui lòng chọn hình thức phạt' }]}
                         >
                             <Select placeholder="Chọn hình thức phạt">
-                                {cardPenaltyForm.map((card) => (
+                                {cardPunishmentForm.map((card) => (
                                     <Select.Option key={card.value} value={card.value}>
                                         {card.label}
                                     </Select.Option>

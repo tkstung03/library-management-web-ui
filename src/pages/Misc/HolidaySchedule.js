@@ -22,7 +22,7 @@ function HolidaySchedule() {
             url: '/',
         },
         {
-            label: 'Lịch nghỉ lễ',
+            label: 'Thông báo nghỉ',
         },
     ];
 
@@ -74,13 +74,13 @@ function HolidaySchedule() {
             <div className="container sectionspace">
                 <div className="row">
                     <div className="col-12 mb-4">
-                        <SectionHeader title={<h2 className="mb-0">Lịch nghỉ lễ</h2>} subtitle="Lịch nghỉ" />
+                        <SectionHeader title={<h2 className="mb-0">Thông báo nghỉ</h2>} subtitle="Lịch nghỉ" />
                     </div>
                     <div className="col-12">
                         <table className="table table-striped table-responsive table-bordered table-hover">
                             <thead>
                                 <tr role="row">
-                                    <th>Tên kỳ nghỉ</th>
+                                    <th>Tên ngày nghỉ</th>
                                     <th>Ngày bắt đầu</th>
                                     <th>Nghỉ hết ngày</th>
                                     <th>Số ngày nghỉ</th>

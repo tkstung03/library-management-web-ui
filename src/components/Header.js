@@ -11,6 +11,7 @@ import queryString from 'query-string';
 import classNames from 'classnames/bind';
 import styles from '~/styles/Header.module.scss';
 import { ROLES } from '~/common/roleConstants';
+import logo from '~/assets/images/logo.svg';
 
 const cx = classNames.bind(styles);
 
@@ -126,11 +127,14 @@ function Header() {
 
             <div className="container py-4">
                 <div className="row align-items-center">
-                    <div className="col-4">
-                        <h1>Library Manager</h1>
+                    <div className="col-4 d-flex align-items-center gap-3">
+                        <img src={logo} alt="logo" style={{ height: 50 }} />
+                        <h1 className="mb-0" style={{ fontSize: '32px'}}>
+                            Library Manager
+                        </h1>
                     </div>
                     <div className="col-8">
-                        <Space.Compact className="w-100">
+                        <Space.Compact className={cx('search-bar', 'w-100')}>
                             <Select
                                 size="large"
                                 defaultValue="title"
@@ -149,7 +153,7 @@ function Header() {
                             />
                         </Space.Compact>
 
-                        <div className="text-lg-end">
+                        <div className={cx('advanced-search')}>
                             <Link to="/search?tab=2">+ Tìm kiếm nâng cao</Link>
                         </div>
                     </div>
@@ -199,13 +203,13 @@ function Header() {
                                 </Link>
                             </li>
                             <li className={cx('nav-item')}>
-                                <Link className="nav-link px-4 py-3 text-white" to="/about">
-                                    Giới thiệu
+                                <Link className="nav-link px-4 py-3 text-white" to="/holiday-schedule">
+                                    Thông báo nghỉ
                                 </Link>
                             </li>
                             <li className={cx('nav-item')}>
-                                <Link className="nav-link px-4 py-3 text-white" to="/holiday-schedule">
-                                    Lịch nghỉ lễ
+                                <Link className="nav-link px-4 py-3 text-white" to="/about">
+                                    Giới thiệu
                                 </Link>
                             </li>
                             <li className={cx('nav-item')}>

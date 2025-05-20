@@ -5,7 +5,7 @@ import { MdOutlineModeEdit } from 'react-icons/md';
 import { FaRegTrashAlt } from 'react-icons/fa';
 import queryString from 'query-string';
 import dayjs from 'dayjs';
-import { cardPenaltyForm } from '~/common/cardConstants';
+import { cardPunishmentForm } from '~/common/cardConstants';
 import { INITIAL_FILTERS, INITIAL_META } from '~/common/commonConstants';
 import { getReaders } from '~/services/readerService';
 import { createReaderViolation, deleteReaderViolation } from '~/services/readerViolationsService';
@@ -15,7 +15,7 @@ import ViolationForm from './ViolationForm';
 const options = [
     { value: 'cardNumber', label: 'Số thẻ' },
     { value: 'fullName', label: 'Họ tên' },
-    { value: 'penaltyForm', label: 'Trạng thái' },
+    { value: 'punishmentForm', label: 'Trạng thái' },
 ];
 
 const penaltyFormMapping = {
@@ -24,7 +24,7 @@ const penaltyFormMapping = {
     FINE: { label: 'Phạt tiền', color: 'red' },
 };
 
-const getTagByPenaltyForm = (text) => {
+const getTagByPunishmentForm = (text) => {
     const { label, color } = penaltyFormMapping[text] || { label: 'Khác', color: 'default' };
     return <Tag color={color}>{label}</Tag>;
 };
@@ -236,11 +236,11 @@ function ReaderViolations() {
         },
         {
             title: 'Hình thức phạt',
-            dataIndex: 'penaltyForm',
-            key: 'penaltyForm',
+            dataIndex: 'punishmentForm',
+            key: 'punishmentForm',
             sorter: true,
             showSorterTooltip: false,
-            render: getTagByPenaltyForm,
+            render: getTagByPunishmentForm,
         },
         {
             title: 'Số tiền',
@@ -265,7 +265,7 @@ function ReaderViolations() {
         },
         {
             title: '',
-           key: 'action',
+            key: 'action',
             fixed: 'right',
             render: (_, record) => (
                 <Space>
@@ -309,7 +309,7 @@ function ReaderViolations() {
                 isLoading={isLoading}
                 form={addForm}
                 initialValues={{
-                    penaltyForm: cardPenaltyForm[0].value,
+                    punishmentForm: cardPunishmentForm[0].value,
                     penaltyDate: dayjs(),
                     endDate: dayjs().add(1, 'month'),
                 }}

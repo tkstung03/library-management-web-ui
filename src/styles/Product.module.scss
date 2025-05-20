@@ -12,14 +12,18 @@
 .featureimg {
     position: relative;
     overflow: hidden;
+    height: 250px; // đặt chiều cao cố định phù hợp
+
     a {
         display: block;
+        height: 100%;
     }
 
     img {
-        object-fit: contain;
+        object-fit: cover; // lấp đầy khung, cắt ảnh nếu cần
         width: 100%;
-        height: auto;
+        height: 100%;
+        display: block;
     }
 
     .tag-soldout {

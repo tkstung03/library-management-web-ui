@@ -25,7 +25,7 @@ root.render(
             locale={viVN}
             theme={{
                 token: {
-                    colorPrimary: '#1677ff',
+                    colorPrimary: '#1a73e8',
                 },
             }}
         >

@@ -6,6 +6,7 @@ import classNames from 'classnames/bind';
 import styles from '~/styles/Footer.module.scss';
 import SocialIcons from './SocialIcons';
 import useLibrary from '~/hooks/useLibrary';
+import logo from '~/assets/images/logo.svg';
 
 const cx = classNames.bind(styles);
 
@@ -17,7 +18,11 @@ function Footer() {
             <div className="container mb-5">
                 <div className="row">
                     <div className="col-12">
-                        <h1 className="py-5">Library Manager</h1>
+                        <div className="d-flex align-items-center gap-3 py-5">
+                            <img src={logo} alt="logo" style={{ height: 50 }} />
+                            <h1 className="mb-0">Library Manager</h1>
+                        </div>
+
                         <ul className={cx('contactinfo')}>
                             <li>
                                 <HiOutlineBuildingOffice2 width={24} />

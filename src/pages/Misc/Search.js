@@ -128,13 +128,11 @@ function Search() {
                     <li>
                         <strong>Tìm nâng cao:</strong>
                         Tìm theo theo toán tử AND, OR, NOT<br></br>
-                        Các mệnh đề điều kiện: <br></br>
+                        Các phương thức: <br></br>
                         Chính xác: Có <strong>tất cả</strong> các từ<br></br>
                         Không chính xác: <strong>Không có</strong> các từ<br></br>
-                        Lớn hơn: <br></br>
-                        Nhỏ hơn: <br></br>
-                        Chứa: Có <strong>ít nhất một</strong> từ<br></br>
-                        Nằm trong: Có <strong>cụm từ chính xác</strong> các từ<br></br>
+                        Chứa: Có <strong>cụm từ chính xác</strong> các từ<br></br>
+                        Nằm trong: Có <strong>ít nhất một</strong> từ<br></br>
                     </li>
                 </ul>
             ),

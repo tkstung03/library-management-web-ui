@@ -16,7 +16,7 @@ export const cardGender = [
     { value: 'OTHER', label: 'Khác' },
 ];
 
-export const cardPenaltyForm = [
+export const cardPunishmentForm = [
     { value: 'CARD_SUSPENSION', label: 'Tạm dừng thẻ' },
     { value: 'CARD_REVOCATION', label: 'Thu hồi thẻ' },
     { value: 'FINE', label: 'Phạt tiền' },

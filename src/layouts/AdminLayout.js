@@ -231,7 +231,7 @@ function AdminLayout() {
                     </div>
                 </Content>
                 {/* Footer */}
-                <Footer style={{ textAlign: 'center' }}>{dayjs().year()} All Rights Reserved By © NHÓM 16</Footer>
+                <Footer style={{ textAlign: 'center' }}>{dayjs().year()} All Rights Reserved By © Tung</Footer>
             </Layout>
         </Layout>
     );
