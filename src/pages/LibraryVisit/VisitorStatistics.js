@@ -45,67 +45,28 @@ function VisitorStatistics() {
             return;
         }
 
+        setIsLoading(true);
         try {
+            setIsLoading(true);
             const query = queryString.stringify({
                 startDate: filters.startDate,
                 endDate: filters.endDate,
             });
-            const response = await getLibraryVisitReportPdf(query);
+            const response = await getLibraryVisitReportPdf(query, { responseType: 'blob' });
 
-            const data = response?.data?.data || [];
-
-            const newWindow = window.open('', '_blank');
-            const htmlContent = `
-            <html>
-                <head>
-                    <title>Báo cáo lượt vào thư viện</title>
-                    <style>
-                        body { font-family: Arial, sans-serif; padding: 20px; }
-                        h2 { text-align: center; }
-                        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-                        th, td { border: 1px solid #000; padding: 8px; text-align: center; }
-                        th { background-color: #f0f0f0; }
-                    </style>
-                </head>
-                <body>
-                    <h2>BÁO CÁO LƯỢT VÀO THƯ VIỆN</h2>
-                    <p>Ngày từ: ${filters.startDate} đến ${filters.endDate}</p>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>STT</th>
-                                <th>Số thẻ</th>
-                                <th>Họ tên</th>
-                                <th>Loại thẻ</th>
-                                <th>Giờ vào</th>
-                                <th>Giờ ra</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            ${data
-                                .map(
-                                    (item, index) => `
-                                <tr>
-                                    <td>${index + 1}</td>
-                                    <td>${item.cardNumber}</td>
-                                    <td>${item.fullName}</td>
-                                    <td>${item.cardType}</td>
-                                    <td>${item.entryTime}</td>
-                                    <td>${item.exitTime || ''}</td>
-                                </tr>
-                            `,
-                                )
-                                .join('')}
-                        </tbody>
-                    </table>
-                </body>
-            </html>
-        `;
-            newWindow.document.write(htmlContent);
-            newWindow.document.close();
+            if (response.status === 200) {
+                const pdfBlob = new Blob([response.data], { type: 'application/pdf' });
+                const url = URL.createObjectURL(pdfBlob);
+                const newTab = window.open(url, '_blank');
+                newTab.focus();
+                URL.revokeObjectURL(url);
+            }
+            
         } catch (error) {
-            messageApi.error('Lỗi khi in báo cáo!');
-            console.error(error);
+            const errorMessage = error.response?.data?.message || 'Có lỗi xảy ra khi xuất dữ liệu.';
+            messageApi.error(errorMessage);
+        } finally {
+            setIsLoading(false);
         }
     };
 
