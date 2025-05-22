@@ -40,6 +40,7 @@ function HolidaySchedule() {
                     const numberOfDays = endDate.diff(startDate, 'day') + 1;
                     return { ...holiday, numberOfDays };
                 });
+                holidaysWithDays.sort((a, b) => dayjs(b.startDate).valueOf() - dayjs(a.startDate).valueOf());
                 setEntityData(holidaysWithDays);
             } catch (error) {
                 setErrorMessage(error.message);
@@ -74,7 +75,7 @@ function HolidaySchedule() {
             <div className="container sectionspace">
                 <div className="row">
                     <div className="col-12 mb-4">
-                        <SectionHeader title={<h2 className="mb-0">Thông báo nghỉ</h2>} subtitle="Lịch nghỉ" />
+                        <SectionHeader title={<h2 className="mb-0">Thông báo lịch đóng cửa thư viện</h2>} subtitle="Lịch nghỉ" />
                     </div>
                     <div className="col-12">
                         <table className="table table-striped table-responsive table-bordered table-hover">

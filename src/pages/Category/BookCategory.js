@@ -215,7 +215,7 @@ function BookCategory({ active }) {
             key: 'activeFlag',
             render: (text, record) => (
                 <Space>
-                    {text ? 'Đang theo dõi' : 'Ngừng theo dõi'}
+                    {text ? 'Đang sử dụng' : 'Tạm dừng'}
                     <Switch checked={text} onChange={(checked) => handleToggleActiveFlag(checked, record)} />
                 </Space>
             ),

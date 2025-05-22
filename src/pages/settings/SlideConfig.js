@@ -182,7 +182,7 @@ function SlideConfig() {
             key: 'activeFlag',
             render: (text, record) => (
                 <Space>
-                    {text ? 'Đang theo dõi' : 'Ngừng theo dõi'}
+                    {text ? 'Đang hiển thị' : 'Đang ẩn'}
                     <Switch checked={text} onChange={(checked) => handleToggleActiveFlag(checked, record)} />
                 </Space>
             ),
