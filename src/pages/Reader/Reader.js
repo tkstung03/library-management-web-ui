@@ -9,6 +9,7 @@ import { INITIAL_FILTERS, INITIAL_META } from '~/common/commonConstants';
 import { createReader, deleteReader, getReaders, printCards, updateReader } from '~/services/readerService';
 import ReaderForm from './ReaderForm';
 import { cardGender, cardStatus, cardTypes } from '~/common/cardConstants';
+import { getAllMajors } from '~/services/majorService';
 
 const options = [
     { value: 'cardNumber', label: 'Số thẻ' },
@@ -51,6 +52,8 @@ function Reader() {
     const [errorMessage, setErrorMessage] = useState(null);
 
     const [messageApi, contextHolder] = message.useMessage();
+
+    const [majorOptions, setMajors] = useState([]);
 
     // Modal thêm mới
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
@@ -234,6 +237,21 @@ function Reader() {
         fetchEntities();
     }, [filters]);
 
+    useEffect(() => {
+        const fetchMajors = async () => {
+            try {
+                // Gọi API lấy majors, giả sử ko có params hoặc dùng params phù hợp
+                const response = await getAllMajors('');
+            
+                setMajors(response.data.items);
+            } catch (error) {
+                message.error('Không lấy được danh sách chuyên ngành');
+            }
+        };
+
+        fetchMajors();
+    }, []);
+
     const rowSelection = {
         onChange: (selectedRowKeys) => {
             setSelectedRowKeys(selectedRowKeys);
@@ -296,13 +314,13 @@ function Reader() {
                 {
                     title: 'PM chưa trả',
                     dataIndex: 'currentBorrowedBooks',
-                    width:40,
+                    width: 40,
                     align: 'center',
                     key: 'currentBorrowedBooks',
                 },
                 {
                     title: 'Vào thư viện',
-                    width:40,
+                    width: 40,
                     align: 'center',
                     dataIndex: 'libraryVisitCount',
                     key: 'libraryVisitCount',
@@ -371,6 +389,7 @@ function Reader() {
                 }}
                 submitText="Thêm mới"
                 messageApi={messageApi}
+                majorOptions={majorOptions}
             />
 
             {/* Modal chỉnh sửa */}
@@ -383,6 +402,7 @@ function Reader() {
                 form={editForm}
                 messageApi={messageApi}
                 isEdit
+                majorOptions={majorOptions}
             />
 
             <Flex className="py-2" wrap justify="space-between" align="center">

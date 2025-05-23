@@ -53,6 +53,7 @@ const menuConfig = [
             { label: 'Thẻ bạn đọc', key: '/admin/readers/cards' },
             { label: 'Xử lý vi phạm', key: '/admin/readers/violations' },
             { label: 'Vào ra thư viện', key: '/admin/readers/access' },
+            { label: 'Ngành học', key: '/admin/majors' },
         ],
     },
     {

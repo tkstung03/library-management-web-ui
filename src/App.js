@@ -48,6 +48,7 @@ import User from './pages/User/User';
 import UserForm from './pages/User/UserForm';
 import UserGroup from './pages/UserGroup/UserGroup';
 import Reader from './pages/Reader/Reader';
+import Major from './pages/Major/Major';
 import LibraryVisit from './pages/LibraryVisit/LibraryVisit';
 import VisitorStatistics from './pages/LibraryVisit/VisitorStatistics';
 import ReaderViolations from './pages/Reader/ReaderViolations';
@@ -150,6 +151,13 @@ function App() {
                                 <Route path="statistics" element={<VisitorStatistics />} />
                             </Route>
                             <Route path="violations" element={<ReaderViolations />} />
+                        </Route>
+
+                        {/* Quản lý ngành học */}
+                        <Route path="majors">
+                            <Route index element={<Major />} />
+                            <Route path="new" element={<Major />} />
+                            <Route path="edit/:id" element={<Major />} />
                         </Route>
 
                         {/* Quản lý nhóm người dùng */}

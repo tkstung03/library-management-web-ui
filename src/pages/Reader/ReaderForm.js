@@ -17,6 +17,7 @@ function ReaderForm({
     submitText = 'Lưu thay đổi',
     messageApi,
     isEdit = false,
+    majors = [],
 }) {
     const [fileList, setFileList] = useState([]);
 
@@ -243,7 +244,22 @@ function ReaderForm({
                                     <Input.Password placeholder="Nhập mật khẩu" />
                                 </Form.Item>
                             </Col>
-
+                            {/* Chuyên ngành */}
+                            <Col span={24}>
+                                <Form.Item
+                                    label="Chuyên ngành"
+                                    name="major"
+                                    rules={[{ required: true, message: 'Vui lòng chọn chuyên ngành' }]}
+                                >
+                                    <Select placeholder="Chọn chuyên ngành" allowClear>
+                                        {majors.map((major) => (
+                                            <Select.Option key={major.id.toString()} value={major.id.toString()}>
+                                                {major.name}
+                                            </Select.Option>
+                                        ))}
+                                    </Select>
+                                </Form.Item>
+                            </Col>
                             {/* Ngày hết hạn */}
                             <Col span={12}>
                                 <Form.Item
