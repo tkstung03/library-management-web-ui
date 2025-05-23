@@ -208,7 +208,7 @@ function Reader() {
                 const url = URL.createObjectURL(pdfBlob);
                 const newTab = window.open(url, '_blank');
                 newTab.focus();
-                
+
                 //URL.revokeObjectURL(url);
             }
         } catch (error) {
@@ -244,8 +244,8 @@ function Reader() {
             try {
                 // Gọi API lấy majors, giả sử ko có params hoặc dùng params phù hợp
                 const response = await getAllMajors('');
-            
-                setMajors(response.data.items);
+                const activeMajors = response.data.items.filter((item) => item.activeFlag);
+                setMajors(activeMajors);
             } catch (error) {
                 message.error('Không lấy được danh sách chuyên ngành');
             }
