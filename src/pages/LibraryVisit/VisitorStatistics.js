@@ -59,7 +59,7 @@ function VisitorStatistics() {
                 const url = URL.createObjectURL(pdfBlob);
                 const newTab = window.open(url, '_blank');
                 newTab.focus();
-                URL.revokeObjectURL(url);
+                //URL.revokeObjectURL(url);
             }
             
         } catch (error) {
@@ -128,6 +128,12 @@ function VisitorStatistics() {
             title: 'Loại thẻ',
             dataIndex: 'cardType',
             key: 'cardType',
+        },
+        {
+            title: 'Chuyên ngành',
+            dataIndex: 'major',
+            key: 'major',
+            sorter: true,
         },
         {
             title: 'Giờ vào',

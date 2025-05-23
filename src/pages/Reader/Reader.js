@@ -208,7 +208,8 @@ function Reader() {
                 const url = URL.createObjectURL(pdfBlob);
                 const newTab = window.open(url, '_blank');
                 newTab.focus();
-                URL.revokeObjectURL(url);
+                
+                //URL.revokeObjectURL(url);
             }
         } catch (error) {
             const errorMessage = error.response?.data?.message || 'Có lỗi xảy ra khi xuất dữ liệu.';

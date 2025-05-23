@@ -146,6 +146,12 @@ function LibraryVisit() {
             dataIndex: 'cardType',
             key: 'cardType',
         },
+
+        {
+            title: 'Chuyên ngành',
+            dataIndex: 'major',
+        },
+
         {
             title: 'Giờ vào',
             dataIndex: 'entryTime',
@@ -162,7 +168,7 @@ function LibraryVisit() {
         },
         {
             title: '',
-           key: 'action',
+            key: 'action',
             fixed: 'right',
             render: (_, record) => (
                 <Button
@@ -231,6 +237,7 @@ function LibraryVisit() {
                             { key: '5', label: 'Giới tính', children: selectedReader.gender || 'N/A' },
                             { key: '6', label: 'Số điện thoại', children: selectedReader.phoneNumber || 'N/A' },
                             { key: '7', label: 'Địa chỉ', children: selectedReader.address || 'N/A' },
+                            { key: '8', label: 'Chuyên ngành', children: selectedReader.major?.name || 'N/A' }
                         ]}
                     />
                 </Col>

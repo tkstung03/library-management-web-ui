@@ -85,7 +85,7 @@ function BookListByCode() {
                 const newTab = window.open(url, '_blank');
                 newTab.focus();
 
-                URL.revokeObjectURL(url);
+                //URL.revokeObjectURL(url);
             }
         } catch (error) {
             console.error('Error getting book PDF:', error);
@@ -102,7 +102,7 @@ function BookListByCode() {
                 const newTab = window.open(url, '_blank');
                 newTab.focus();
 
-                URL.revokeObjectURL(url);
+                //URL.revokeObjectURL(url);
             }
         } catch (error) {
             console.error('Error getting book label type 1 PDF:', error);
@@ -119,7 +119,7 @@ function BookListByCode() {
                 const newTab = window.open(url, '_blank');
                 newTab.focus();
 
-                URL.revokeObjectURL(url);
+                //URL.revokeObjectURL(url);
             }
         } catch (error) {
             console.error('Error getting book label type 2 PDF:', error);
@@ -136,7 +136,7 @@ function BookListByCode() {
                 const newTab = window.open(url, '_blank');
                 newTab.focus();
 
-                URL.revokeObjectURL(url);
+                //URL.revokeObjectURL(url);
             }
         } catch (error) {
             console.error('Error getting book list PDF:', error);

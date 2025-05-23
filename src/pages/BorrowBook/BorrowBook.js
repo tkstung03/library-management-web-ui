@@ -232,7 +232,7 @@ function BorrowBook() {
                 a.click();
                 document.body.removeChild(a);
 
-                URL.revokeObjectURL(fileURL);
+                //URL.revokeObjectURL(fileURL);
             }
         } catch (error) {
             const errorMessage = error.response?.data?.message || 'Có lỗi xảy ra khi xuất dữ liệu.';
