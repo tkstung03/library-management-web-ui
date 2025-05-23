@@ -81,6 +81,7 @@ function Reader() {
             dateOfBirth: record.dateOfBirth ? dayjs(record.dateOfBirth) : null,
             expiryDate: record.expiryDate ? dayjs(record.expiryDate) : null,
             previousImage: record.avatar || null,
+            majorId: record.major?.id || null,
         };
 
         setEditingItem(values);
@@ -389,7 +390,7 @@ function Reader() {
                 }}
                 submitText="Thêm mới"
                 messageApi={messageApi}
-                majorOptions={majorOptions}
+                majors={majorOptions}
             />
 
             {/* Modal chỉnh sửa */}
@@ -402,7 +403,7 @@ function Reader() {
                 form={editForm}
                 messageApi={messageApi}
                 isEdit
-                majorOptions={majorOptions}
+                majors={majorOptions}
             />
 
             <Flex className="py-2" wrap justify="space-between" align="center">

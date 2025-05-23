@@ -248,12 +248,12 @@ function ReaderForm({
                             <Col span={24}>
                                 <Form.Item
                                     label="Chuyên ngành"
-                                    name="major"
+                                    name="majorId"
                                     rules={[{ required: true, message: 'Vui lòng chọn chuyên ngành' }]}
                                 >
                                     <Select placeholder="Chọn chuyên ngành" allowClear>
-                                        {majors.map((major) => (
-                                            <Select.Option key={major.id.toString()} value={major.id.toString()}>
+                                        {majors.map((major, index) => (
+                                            <Select.Option key={index} value={major.id}>
                                                 {major.name}
                                             </Select.Option>
                                         ))}
