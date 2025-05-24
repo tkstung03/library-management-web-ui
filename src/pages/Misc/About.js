@@ -13,7 +13,7 @@ function About() {
             url: '/',
         },
         {
-            label: 'Thông tin về chúng tôi',
+            label: 'Thông tin thư viện',
         },
     ];
 
@@ -24,7 +24,7 @@ function About() {
                     <div className="container">
                         <div className="row justify-content-center">
                             <div className="col-auto">
-                                <h1>Về chúng tôi</h1>
+                                <h1>Giới thiệu</h1>
                             </div>
                         </div>
 
@@ -40,7 +40,7 @@ function About() {
             <div className="container sectionspace">
                 <div className="row">
                     <div className="col-12 mb-4">
-                        <SectionHeader title={<h2 className="mb-0">Về chúng tôi</h2>} subtitle="Xin chào!" />
+                        <SectionHeader title={<h2 className="mb-0">Thông tin thư viện</h2>} subtitle="Xin chào!" />
                     </div>
                     <div className="col-12">
                         <div

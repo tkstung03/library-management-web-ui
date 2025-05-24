@@ -12,7 +12,7 @@ import { getBookByBookDefinitionsForUser } from '~/services/bookDefinitionServic
 
 const options = [
     { value: 'title', label: 'Tên sách' },
-    { value: 'bookCode', label: 'Kí hiệu' },
+    { value: 'bookNumber', label: 'Kí hiệu' },
 ];
 
 function BookCollection() {

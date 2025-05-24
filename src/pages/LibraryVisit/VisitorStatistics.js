@@ -94,10 +94,12 @@ function VisitorStatistics() {
                 const params = queryString.stringify(filters);
                 const response = await getLibraryVisits(params);
                 const { meta, items } = response.data.data;
-                setEntityData(items);
-                setMeta(meta);
+                // Đảm bảo không có kết quả thì entityData là []
+            setEntityData(Array.isArray(items) ? items : []);
+            setMeta(meta || INITIAL_META);
             } catch (error) {
                 setErrorMessage(error.message);
+                setEntityData([]); 
             } finally {
                 setIsLoading(false);
             }

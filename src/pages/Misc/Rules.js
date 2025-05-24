@@ -43,7 +43,7 @@ function Rules() {
                     <div className="container">
                         <div className="row justify-content-center">
                             <div className="col-auto">
-                                <h1>Về chúng tôi</h1>
+                                <h1>Nội quy</h1>
                             </div>
                         </div>
 
