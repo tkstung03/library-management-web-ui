@@ -130,7 +130,7 @@ function BorrowBook() {
         setIsLoading(true);
         try {
             const response = await printBorrowReceipts({
-            //    schoolName: 'Trường Đại học Công nghiệp Hà Nội',
+                //    schoolName: 'Trường Đại học Công nghiệp Hà Nội',
                 borrowIds: selectedRowKeys,
             });
 
@@ -140,8 +140,6 @@ function BorrowBook() {
 
                 const newTab = window.open(url, '_blank');
                 newTab.focus();
-
-
             }
         } catch (error) {
             const errorMessage = error.response?.data?.message || 'Có lỗi xảy ra khi xuất dữ liệu.';
@@ -166,7 +164,7 @@ function BorrowBook() {
                 const newTab = window.open(url, '_blank');
                 newTab.focus();
 
-              //  URL.revokeObjectURL(url);
+                //  URL.revokeObjectURL(url);
             }
         } catch (error) {
             const errorMessage = error.response?.data?.message || 'Có lỗi xảy ra khi xuất dữ liệu.';
@@ -186,9 +184,11 @@ function BorrowBook() {
                 const url = URL.createObjectURL(pdfBlob);
 
                 const newTab = window.open(url, '_blank');
+                if (!newTab) {
+                    messageApi.error('Trình duyệt đang chặn pop-up.');
+                    return;
+                }
                 newTab.focus();
-
-                //URL.revokeObjectURL(url);
             }
         } catch (error) {
             const errorMessage = error.response?.data?.message || 'Có lỗi xảy ra khi xuất dữ liệu.';
@@ -351,8 +351,8 @@ function BorrowBook() {
         },
         {
             title: '',
-           key: 'action',
-                      fixed: 'right',
+            key: 'action',
+            fixed: 'right',
             render: (_, record) => (
                 <Space>
                     <Button type="text" icon={<MdOutlineModeEdit />} onClick={() => navigate(`edit/${record.id}`)} />

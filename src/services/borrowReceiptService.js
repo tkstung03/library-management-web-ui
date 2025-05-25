@@ -41,9 +41,9 @@ export const printBorrowReceipts = (values) => {
         responseType: 'arraybuffer',
     });
 };
-export const printOverdueBorrowReceipts = (values) => {
-    return axiosPrivate.get('admin/borrow-receipts/print-overdue', values, {
-        responseType: 'arraybuffer',
+export const printOverdueBorrowReceipts = () => {
+    return axiosPrivate.get('admin/borrow-receipts/print-overdue', {
+        responseType: 'arraybuffer', 
     });
 };
 

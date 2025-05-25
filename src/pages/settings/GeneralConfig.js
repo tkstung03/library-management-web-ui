@@ -7,10 +7,10 @@ import { handleError } from '~/utils/errorHandler';
 
 const defaultValue = {
     rowsPerPage: null,
-    reservationTime: null,
-    maxBorrowLimit: null,
-    maxRenewalTimes: null,
-    maxRenewalDays: null,
+    // reservationTime: null,
+    // maxBorrowLimit: null,
+    // maxRenewalTimes: null,
+    // maxRenewalDays: null,
 };
 
 const validationSchema = yup.object({
@@ -18,22 +18,22 @@ const validationSchema = yup.object({
         .number()
         .min(1, 'Số dòng hiển thị phải lớn hơn 0.')
         .required('Số dòng hiển thị trên trang là bắt buộc.'),
-    reservationTime: yup
-        .number()
-        .min(1, 'Thời gian giữ chỗ phải lớn hơn 0.')
-        .required('Thời gian giữ chỗ là bắt buộc.'),
-    maxBorrowLimit: yup
-        .number()
-        .min(1, 'Số lượng mượn tối đa phải lớn hơn 0.')
-        .required('Số lượng mượn tối đa là bắt buộc.'),
-    maxRenewalTimes: yup
-        .number()
-        .min(0, 'Số lần gia hạn tối đa không được âm.')
-        .required('Số lần gia hạn tối đa là bắt buộc.'),
-    maxRenewalDays: yup
-        .number()
-        .min(0, 'Số ngày gia hạn tối đa không được âm.')
-        .required('Số ngày gia hạn tối đa là bắt buộc.'),
+    // reservationTime: yup
+    //     .number()
+    //     .min(1, 'Thời gian giữ chỗ phải lớn hơn 0.')
+    //     .required('Thời gian giữ chỗ là bắt buộc.'),
+    // maxBorrowLimit: yup
+    //     .number()
+    //     .min(1, 'Số lượng mượn tối đa phải lớn hơn 0.')
+    //     .required('Số lượng mượn tối đa là bắt buộc.'),
+    // maxRenewalTimes: yup
+    //     .number()
+    //     .min(0, 'Số lần gia hạn tối đa không được âm.')
+    //     .required('Số lần gia hạn tối đa là bắt buộc.'),
+    // maxRenewalDays: yup
+    //     .number()
+    //     .min(0, 'Số ngày gia hạn tối đa không được âm.')
+    //     .required('Số ngày gia hạn tối đa là bắt buộc.'),
 });
 
 function GeneralConfig() {
@@ -77,6 +77,7 @@ function GeneralConfig() {
             {contextHolder}
 
             <h2>Cấu hình chung</h2>
+            <br></br>
 
             <form onSubmit={formik.handleSubmit}>
                 <div className="row mb-3">
@@ -100,7 +101,7 @@ function GeneralConfig() {
                     </div>
                 </div>
 
-                <div className="row mb-3">
+                {/* <div className="row mb-3">
                     <div className="col-md-3">
                         <label htmlFor="reservationTime">
                             <span className="text-danger">*</span> Thời gian giữ chỗ mượn ấn phẩm:
@@ -194,7 +195,7 @@ function GeneralConfig() {
                             {formik.touched.maxRenewalDays && formik.errors.maxRenewalDays}
                         </div>
                     </div>
-                </div>
+                </div> */}
 
                 <div className="row mb-3">
                     <div className="col-md-3">
