@@ -63,3 +63,12 @@ export const printCards = (values) => {
 export const getReaderDetails = (params) => {
     return axiosPrivate.get('readers/details');
 };
+
+export const importReaders = (formData) => {
+    return axiosPrivate.post('readers/import', formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    });
+};
+

@@ -16,6 +16,7 @@ import {
     PieChart,
     Pie,
     Cell,
+    LabelList,
 } from 'recharts';
 import classNames from 'classnames/bind';
 import styles from '~/styles/Dashboard.module.scss';
@@ -53,7 +54,8 @@ const Card = ({ icon, count, label, link, color = 'white' }) => {
     );
 };
 
-const CHART_COLORS = ['#5cb85c', '#d9534f'];
+// const CHART_COLORS = ['#5cb85c', '#d9534f'];
+const CHART_COLORS = ['#4CAF50', '#FF9800', '#F44336', '#2196F3', '#9C27B0'];
 
 function Dashboard() {
     const [borrowStatistics, setBorrowStatistics] = useState({
@@ -153,14 +155,26 @@ function Dashboard() {
                     <IoBarChartSharp /> &nbsp; <b>Biểu đồ thống kê số lượng ấn phẩm theo phân loại</b>
                 </div>
                 <div className={cx('body')}>
-                    <ResponsiveContainer width="100%" height={300}>
-                        <BarChart data={categoryStatistics}>
+                    <ResponsiveContainer width="100%" height={350}>
+                        <BarChart data={categoryStatistics} margin={{ top: 20, right: 30, left: 20, bottom: 80 }}>
                             <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="categoryName" />
-                            <YAxis />
-                            <Tooltip />
-                            <Legend />
-                            <Bar dataKey="count" name="Ấn phẩm" fill="#8884d8" />
+                            <XAxis dataKey="categoryName" angle={-45} textAnchor="end" interval={0} height={80} />
+                            <YAxis allowDecimals={false} />
+                            <Tooltip
+                                contentStyle={{ backgroundColor: '#f9f9f9', borderRadius: '5px' }}
+                                formatter={(value) => [`${value} ấn phẩm`, 'Số lượng']}
+                            />
+                            <Legend verticalAlign="top" />
+                            <Bar dataKey="count" name="Ấn phẩm" radius={[4, 4, 0, 0]} isAnimationActive={true}>
+                                {categoryStatistics.map((_, index) => (
+                                    <Cell key={`cell-${index}`} fill={CHART_COLORS[index % CHART_COLORS.length]} />
+                                ))}
+                                <LabelList
+                                    dataKey="count"
+                                    position="top"
+                                    style={{ fill: '#333', fontWeight: 'bold', fontSize: 12 }}
+                                />
+                            </Bar>
                         </BarChart>
                     </ResponsiveContainer>
                 </div>
@@ -179,14 +193,27 @@ function Dashboard() {
                                 nameKey="name"
                                 cx="50%"
                                 cy="50%"
-                                outerRadius={80}
-                                fill="#8884d8"
+                                outerRadius={100}
+                                innerRadius={60}
+                                paddingAngle={3}
+                                // label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(1)}%`}
+                                labelLine={false}
+                                isAnimationActive={true}
                             >
                                 {loanStatusData.map((_, index) => (
-                                    <Cell key={`cell-${index}`} fill={CHART_COLORS[index]} />
+                                    <Cell key={`cell-${index}`} fill={CHART_COLORS[index % CHART_COLORS.length]} />
                                 ))}
                             </Pie>
-                            <Tooltip />
+                            <Tooltip
+                                formatter={(value, name) => [`${value}%`, name]}
+                                contentStyle={{ backgroundColor: '#f9f9f9', borderRadius: '5px' }}
+                            />
+                            <Legend
+                                layout="horizontal"
+                                verticalAlign="bottom"
+                                align="center"
+                                wrapperStyle={{ marginTop: '10px' }}
+                            />
                         </PieChart>
                     </ResponsiveContainer>
                 </div>
@@ -197,23 +224,33 @@ function Dashboard() {
                     <FaBook /> &nbsp;<b>Ấn phẩm được mượn nhiều nhất</b>
                 </div>
                 <div className={cx('body')}>
-                    <Timeline
-                        mode="alternate"
-                        items={topBorrowedBooks.map((publication, index) => ({
-                            color: index % 2 === 0 ? 'gray' : 'green',
-                            dot: <FaBook style={{ fontSize: '16px' }} />,
-                            children: (
-                                <>
-                                    <strong>{publication.title}</strong>
-                                    <p>
-                                        <small className="text-muted">
-                                            <FaClock /> {publication.borrowCount} lượt mượn
-                                        </small>
-                                    </p>
-                                </>
-                            ),
-                        }))}
-                    />
+                    <Timeline mode="alternate" className={cx('custom-timeline')}>
+                        {topBorrowedBooks.map((publication, index) => {
+                            const rankColor = ['#FFD700', '#C0C0C0', '#CD7F32']; // vàng, bạc, đồng
+                            const iconColor = rankColor[index] || '#5cb85c';
+
+                            return (
+                                <Timeline.Item
+                                    key={index}
+                                    color="gray"
+                                    dot={<FaBook style={{ fontSize: 18, color: iconColor }} />}
+                                >
+                                    <div className={cx('timeline-item-content')}>
+                                        <h5 className={cx('title')}>
+                                            <span className={cx('rank')} style={{ color: iconColor }}>
+                                                #{index + 1}
+                                            </span>{' '}
+                                            {publication.title}
+                                        </h5>
+                                        <p className={cx('meta')}>
+                                            <FaClock className="me-2" />
+                                            {publication.borrowCount} lượt mượn
+                                        </p>
+                                    </div>
+                                </Timeline.Item>
+                            );
+                        })}
+                    </Timeline>
                 </div>
             </div>
         </div>

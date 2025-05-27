@@ -348,7 +348,7 @@ function SlideConfig() {
                 </Form>
             </Modal>
 
-            <Flex className="py-2" wrap justify="space-between" align="center">
+            <Flex className="pb-2" wrap justify="space-between" align="center">
                 <h2>Thiết lập slide</h2>
                 <Button type="primary" onClick={showAddModal}>
                     Thêm slide

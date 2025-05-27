@@ -168,16 +168,19 @@ function Holidays() {
             title: 'Ngày bắt đầu',
             dataIndex: 'startDate',
             key: 'startDate',
+            sorter: (a, b) => new Date(a.startDate) - new Date(b.startDate),
         },
         {
             title: 'Ngày kết thúc',
             dataIndex: 'endDate',
             key: 'endDate',
+            sorter: (a, b) => new Date(a.endDate) - new Date(b.endDate),
         },
         {
             title: 'Trạng thái',
             dataIndex: 'activeFlag',
             key: 'activeFlag',
+            sorter: (a, b) => a.activeFlag - b.activeFlag,
             render: (text, record) => (
                 <Space>
                     {text ? 'Đang hiển thị' : 'Đang ẩn'}
@@ -303,7 +306,7 @@ function Holidays() {
                 </Form>
             </Modal>
 
-            <Flex className="py-2" wrap justify="space-between" align="center">
+            <Flex className="pb-2" wrap justify="space-between" align="center">
                 <h2>Thông báo nghỉ</h2>
                 <Button type="primary" onClick={showAddModal}>
                     Thêm mới

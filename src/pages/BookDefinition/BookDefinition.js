@@ -9,6 +9,7 @@ import queryString from 'query-string';
 
 import { INITIAL_FILTERS, INITIAL_META } from '~/common/commonConstants';
 import { deleteBookDefinition, getBookDefinitions, toggleActiveFlag } from '~/services/bookDefinitionService';
+import useSystemConfig from '~/hooks/useSystemConfig';
 
 const options = [
     { value: 'title', label: 'Nhan đề' },
@@ -34,6 +35,17 @@ function BookDefinition() {
     const handleChangePage = (newPage) => {
         setFilters((prev) => ({ ...prev, pageNumb: newPage }));
     };
+
+    const { config } = useSystemConfig();
+
+    useEffect(() => {
+        if (config?.rowsPerPage) {
+            setFilters((prev) => ({
+                ...prev,
+                pageSize: config.rowsPerPage,
+            }));
+        }
+    }, [config]);
 
     const handleChangeRowsPerPage = (current, size) => {
         setFilters((prev) => ({

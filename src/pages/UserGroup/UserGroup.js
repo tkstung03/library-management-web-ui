@@ -342,7 +342,7 @@ function UserGroup() {
                 </Form>
             </Modal>
 
-            <Flex className="py-2" wrap justify="space-between" align="center">
+            <Flex className="pb-2" wrap justify="space-between" align="center">
                 <h2>Nhóm người dùng</h2>
                 <Button type="primary" onClick={showAddModal}>
                     Thêm mới

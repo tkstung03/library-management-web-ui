@@ -1,12 +1,21 @@
 import { useEffect, useState } from 'react';
 import { Input, message, Popconfirm, Select, Space } from 'antd';
 import { Button, Dropdown, Flex, Form, Table, Tag } from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
+import { Upload } from 'antd';
 import { MdOutlineModeEdit } from 'react-icons/md';
 import { FaRegTrashAlt, FaPrint } from 'react-icons/fa';
 import queryString from 'query-string';
 import dayjs from 'dayjs';
 import { INITIAL_FILTERS, INITIAL_META } from '~/common/commonConstants';
-import { createReader, deleteReader, getReaders, printCards, updateReader } from '~/services/readerService';
+import {
+    createReader,
+    deleteReader,
+    getReaders,
+    printCards,
+    updateReader,
+    importReaders,
+} from '~/services/readerService';
 import ReaderForm from './ReaderForm';
 import { cardGender, cardStatus, cardTypes } from '~/common/cardConstants';
 import { getAllMajors } from '~/services/majorService';
@@ -254,6 +263,28 @@ function Reader() {
         fetchMajors();
     }, []);
 
+    const handleExcelUpload = async ({ file }) => {
+        const formData = new FormData();
+        formData.append('file', file);
+
+        setIsLoading(true);
+        try {
+            const response = await importReaders(formData); // Gọi API backend
+            if (response.status === 200 || response.status === 201) {
+                const { message, data } = response.data;
+                messageApi.success(message || 'Thêm mới bạn đọc thành công');
+
+                // Cập nhật lại danh sách bạn đọc nếu cần
+                setFilters((prev) => ({ ...prev })); // Trigger reload
+            }
+        } catch (error) {
+            const errorMessage = error.response?.data?.message || 'Tải file thất bại';
+            messageApi.error(errorMessage);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     const rowSelection = {
         onChange: (selectedRowKeys) => {
             setSelectedRowKeys(selectedRowKeys);
@@ -407,7 +438,7 @@ function Reader() {
                 majors={majorOptions}
             />
 
-            <Flex className="py-2" wrap justify="space-between" align="center">
+            <Flex className="pb-2" wrap justify="space-between" align="center">
                 <h2>Thẻ bạn đọc</h2>
 
                 <Space>
@@ -434,6 +465,11 @@ function Reader() {
                     <Button type="primary" onClick={showAddModal} loading={isLoading}>
                         Thêm mới
                     </Button>
+                    <Upload name="file" accept=".xlsx, .xls" showUploadList={false} customRequest={handleExcelUpload}>
+                        <Button type="primary" icon={<UploadOutlined />} loading={isLoading}>
+                            Thêm mới hàng loạt
+                        </Button>
+                    </Upload>
                     <Dropdown menu={{ items }}>
                         <Button icon={<FaPrint />}>In</Button>
                     </Dropdown>

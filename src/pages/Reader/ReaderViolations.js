@@ -332,7 +332,7 @@ function ReaderViolations() {
                 readers={readers}
             />
 
-            <Flex className="py-2" wrap justify="space-between" align="center">
+            <Flex className="pb-2" wrap justify="space-between" align="center">
                 <h2>Xử lý vi phạm</h2>
 
                 <Space>

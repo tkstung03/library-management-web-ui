@@ -249,7 +249,7 @@ function InwardBookForm() {
         },
         {
             title: '',
-           key: 'action',
+            key: 'action',
             fixed: 'right',
             render: (_, record) => (
                 <Button type="text" danger icon={<FaRegTrashAlt />} onClick={() => handleDeleteColum(record.id)} />
@@ -312,16 +312,18 @@ function InwardBookForm() {
                         <div className="text-danger">{formik.touched.fundingSource && formik.errors.fundingSource}</div>
                     </div>
 
+                    <FormInput id="importReason" label="Lý do nhập" className="col-md-7" formik={formik} />
                     <FormInput
                         id="generalRecordNumber"
                         label="Số vào sổ tổng quát"
-                        className="col-md-6"
+                        className="col-md-5"
                         formik={formik}
                     />
 
-                    <FormInput id="importReason" label="Lý do nhập" className="col-md-6" formik={formik} />
-
-                    <div className="col-md-6">
+                    <div className="col-md-7">
+                        <label htmlFor="fundingSource">
+                            <span className="text-danger">*</span> Biên mục:
+                        </label>
                         <Select
                             showSearch
                             allowClear
@@ -355,6 +357,9 @@ function InwardBookForm() {
                     </div>
 
                     <div className="col-md-3">
+                        <label htmlFor="fundingSource">
+                            <span className="text-danger">*</span> Số lượng nhập (Tối đa 100/lần nhập):
+                        </label>
                         <InputNumber
                             min={1}
                             max={100}
@@ -365,7 +370,7 @@ function InwardBookForm() {
                         />
                     </div>
 
-                    <div className="col-lg-3">
+                    <div className="col-lg-2" style={{ alignContent: 'flex-end', textAlign: 'end' }}>
                         <Button type="primary" icon={<FaPlusCircle />} onClick={handleAddNewColum}>
                             Thêm dòng mới
                         </Button>

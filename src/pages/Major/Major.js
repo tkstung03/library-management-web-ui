@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import { Alert, Button, Form, Input, message, Modal, Popconfirm, Space, Switch, Table } from 'antd';
+import { Alert, Button, Form, Input, message, Modal, Popconfirm, Space, Switch, Table, Flex } from 'antd';
 import { MdOutlineModeEdit } from 'react-icons/md';
 import { FaRegTrashAlt } from 'react-icons/fa';
 import queryString from 'query-string';
+import useSystemConfig from '~/hooks/useSystemConfig';
 
 import { getAllMajors, createMajor, updateMajor, deleteMajor, toggleMajorActiveStatus } from '~/services/majorService';
 
@@ -37,28 +38,38 @@ function MajorPage() {
     const [editingMajor, setEditingMajor] = useState(null);
     const [editForm] = Form.useForm();
 
-    const fetchMajors = async () => {
-    setIsLoading(true);
-    setErrorMessage(null);
-    try {
-        const params = queryString.stringify(filters);
-        const response = await getAllMajors(params);
+    const { config } = useSystemConfig();
 
-        // Kiểm tra đúng chỗ lấy data:
-        if (response && response.data && response.data.items) {
-            setMajors(response.data.items);
-            setMeta(response.data.meta);
-        } else {
-            setMajors([]);
-            setMeta(INITIAL_META);
+    useEffect(() => {
+        if (config?.rowsPerPage) {
+            setFilters((prev) => ({
+                ...prev,
+                pageSize: config.rowsPerPage,
+            }));
         }
-    } catch (error) {
-        setErrorMessage(error.message || 'Lỗi khi tải danh sách chuyên ngành');
-    } finally {
-        setIsLoading(false);
-    }
-};
+    }, [config]);
 
+    const fetchMajors = async () => {
+        setIsLoading(true);
+        setErrorMessage(null);
+        try {
+            const params = queryString.stringify(filters);
+            const response = await getAllMajors(params);
+
+            // Kiểm tra đúng chỗ lấy data:
+            if (response && response.data && response.data.items) {
+                setMajors(response.data.items);
+                setMeta(response.data.meta);
+            } else {
+                setMajors([]);
+                setMeta(INITIAL_META);
+            }
+        } catch (error) {
+            setErrorMessage(error.message || 'Lỗi khi tải danh sách chuyên ngành');
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
     useEffect(() => {
         fetchMajors();
@@ -138,44 +149,43 @@ function MajorPage() {
     };
 
     const columns = [
-    {
-        title: 'Tên chuyên ngành',
-        dataIndex: 'name',  // sửa lại thành 'name'
-        key: 'name',
-        sorter: true,
-    },
-    {
-        title: 'Trạng thái',
-        dataIndex: 'activeFlag',
-        key: 'activeFlag',
-        render: (text, record) => (
-            <Space>
-                {text ? 'Đang sử dụng' : 'Tạm dừng'}
-                <Switch checked={text} onChange={(checked) => handleToggleActive(checked, record)} />
-            </Space>
-        ),
-    },
-    {
-        title: 'Hành động',
-        key: 'action',
-        fixed: 'right',
-        render: (_, record) => (
-            <Space>
-                <Button type="text" icon={<MdOutlineModeEdit />} onClick={() => showEditModal(record)} />
-                <Popconfirm
-                    title="Xác nhận"
-                    description={`Bạn có chắc muốn xóa chuyên ngành "${record.name}" không?`}
-                    onConfirm={() => handleDeleteMajor(record.id)}
-                    okText="Xóa"
-                    cancelText="Hủy"
-                >
-                    <Button type="text" danger icon={<FaRegTrashAlt />} />
-                </Popconfirm>
-            </Space>
-        ),
-    },
-];
-
+        {
+            title: 'Tên chuyên ngành',
+            dataIndex: 'name', // sửa lại thành 'name'
+            key: 'name',
+            sorter: true,
+        },
+        {
+            title: 'Trạng thái',
+            dataIndex: 'activeFlag',
+            key: 'activeFlag',
+            render: (text, record) => (
+                <Space>
+                    {text ? 'Đang sử dụng' : 'Tạm dừng'}
+                    <Switch checked={text} onChange={(checked) => handleToggleActive(checked, record)} />
+                </Space>
+            ),
+        },
+        {
+            title: 'Hành động',
+            key: 'action',
+            fixed: 'right',
+            render: (_, record) => (
+                <Space>
+                    <Button type="text" icon={<MdOutlineModeEdit />} onClick={() => showEditModal(record)} />
+                    <Popconfirm
+                        title="Xác nhận"
+                        description={`Bạn có chắc muốn xóa chuyên ngành "${record.name}" không?`}
+                        onConfirm={() => handleDeleteMajor(record.id)}
+                        okText="Xóa"
+                        cancelText="Hủy"
+                    >
+                        <Button type="text" danger icon={<FaRegTrashAlt />} />
+                    </Popconfirm>
+                </Space>
+            ),
+        },
+    ];
 
     // Phân trang, sắp xếp
     const handleTableChange = (pagination, filters, sorter) => {
@@ -236,9 +246,12 @@ function MajorPage() {
 
             <Alert showIcon message="Quản lý danh sách chuyên ngành đào tạo của trường" type="info" className="mb-3" />
 
-            <Button type="primary" onClick={showAddModal} className="mb-3">
-                Thêm mới
-            </Button>
+            <Flex className="pb-2" wrap justify="space-between" align="center">
+                <h2>Ngành học</h2>
+                <Button type="primary" onClick={showAddModal}>
+                    Thêm mới
+                </Button>
+            </Flex>
 
             <Table
                 bordered
