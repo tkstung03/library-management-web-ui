@@ -65,11 +65,11 @@ function Home() {
 
             <ProductList
                 filters={{
-                    sortBy: 'title',
+                    sortBy: 'id',
                     sortType: 'DESC',
                 }}
-                title={<h2 className="mb-0">Sách được mượn nhiều nhất</h2>}
-                subtitle={'Lựa chọn của mọi người'}
+                title={<h2 className="mb-0">Sách mới phát hành</h2>}
+                subtitle={'Sách mới'}
                 messageApi={messageApi}
             />
 
@@ -99,11 +99,30 @@ function Home() {
 
             <ProductList
                 filters={{
-                    sortBy: 'id',
-                    sortType: 'DESC',
+                    categoryId: '10',
                 }}
-                title={<h2 className="mb-0">Sách mới phát hành</h2>}
-                subtitle={'Sách mới'}
+                title={<h2 className="mb-0">Sách Văn học - Tiểu thuyết kinh điển</h2>}
+                subtitle={'Lựa chọn của mọi người'}
+                messageApi={messageApi}
+            />
+
+            <ProductList
+                filters={{ categoryId: '16' }}
+                title={<h2 className="mb-0">Sách Văn học thiếu nhi</h2>}
+                subtitle={'Nuôi dưỡng trí tuệ và cảm xúc trẻ thơ'}
+                messageApi={messageApi}
+            />
+
+            <ProductList
+                filters={{ categoryId: '13' }}
+                title={<h2 className="mb-0">Truyện Cổ Tích</h2>}
+                subtitle={'Những câu chuyện đi cùng tuổi thơ'}
+                messageApi={messageApi}
+            />
+            <ProductList
+                filters={{ categoryId: '14' }}
+                title={<h2 className="mb-0">Truyện Tranh</h2>}
+                subtitle={'Giải trí, hài hước và sáng tạo không giới hạn'}
                 messageApi={messageApi}
             />
 

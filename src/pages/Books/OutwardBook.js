@@ -6,6 +6,7 @@ import { FaRegTrashAlt } from 'react-icons/fa';
 import queryString from 'query-string';
 import { INITIAL_FILTERS, INITIAL_META } from '~/common/commonConstants';
 import { deleteExportReceipt, getExportReceipts } from '~/services/exportReceiptService';
+import useSystemConfig from '~/hooks/useSystemConfig';
 
 const options = [
     { value: 'receiptNumber', label: 'Số phiếu xuất' },
@@ -40,6 +41,16 @@ function OutwardBook() {
             pageSize: size,
         }));
     };
+    const { config } = useSystemConfig();
+
+    useEffect(() => {
+        if (config?.rowsPerPage) {
+            setFilters((prev) => ({
+                ...prev,
+                pageSize: config.rowsPerPage,
+            }));
+        }
+    }, [config]);
 
     const handleSortChange = (pagination, filters, sorter) => {
         const sortOrder = sorter.order === 'ascend' ? true : sorter.order === 'descend' ? false : undefined;

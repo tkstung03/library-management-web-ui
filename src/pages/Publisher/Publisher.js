@@ -11,6 +11,7 @@ import {
     toggleActiveFlag,
     updatePublisher,
 } from '~/services/publisherService';
+import useSystemConfig from '~/hooks/useSystemConfig';
 
 function Publisher() {
     const [meta, setMeta] = useState(INITIAL_META);
@@ -72,6 +73,17 @@ function Publisher() {
             isAscending: sortOrder,
         }));
     };
+
+    const { config } = useSystemConfig();
+
+    useEffect(() => {
+        if (config?.rowsPerPage) {
+            setFilters((prev) => ({
+                ...prev,
+                pageSize: config.rowsPerPage,
+            }));
+        }
+    }, [config]);
 
     const handleCreateEntity = async (values) => {
         try {

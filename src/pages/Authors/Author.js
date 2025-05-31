@@ -8,6 +8,7 @@ import queryString from 'query-string';
 
 import { INITIAL_FILTERS, INITIAL_META } from '~/common/commonConstants';
 import { deleteAuthor, getAuthors, toggleActiveFlag } from '~/services/authorService';
+import useSystemConfig from '~/hooks/useSystemConfig';
 
 const genderTags = {
     MALE: <Tag color="green">Nam</Tag>,
@@ -47,6 +48,17 @@ function Author() {
             pageSize: size,
         }));
     };
+
+    const { config } = useSystemConfig();
+
+    useEffect(() => {
+        if (config?.rowsPerPage) {
+            setFilters((prev) => ({
+                ...prev,
+                pageSize: config.rowsPerPage,
+            }));
+        }
+    }, [config]);
 
     const handleSortChange = (pagination, filters, sorter) => {
         const sortOrder = sorter.order === 'ascend' ? true : sorter.order === 'descend' ? false : undefined;

@@ -12,6 +12,7 @@ import {
     updateCategory,
 } from '~/services/categoryService';
 import { getCategoryGroups } from '~/services/categoryGroupService';
+import useSystemConfig from '~/hooks/useSystemConfig';
 
 const { Option } = Select;
 
@@ -65,6 +66,17 @@ function BookCategory({ active }) {
     const handleChangePage = (newPage) => {
         setFilters((prev) => ({ ...prev, pageNumb: newPage }));
     };
+
+    const { config } = useSystemConfig();
+
+    useEffect(() => {
+        if (config?.rowsPerPage) {
+            setFilters((prev) => ({
+                ...prev,
+                pageSize: config.rowsPerPage,
+            }));
+        }
+    }, [config]);
 
     const handleChangeRowsPerPage = (current, size) => {
         setFilters((prev) => ({
@@ -337,7 +349,7 @@ function BookCategory({ active }) {
                 </Form>
             </Modal>
 
-            <Alert showIcon message={<div>Mỗi loại sách tương ứng với một sổ đăng ký cá biệt.</div>} type="info" />
+            <Alert showIcon message={<div>Mỗi loại sách tương ứng với một số đăng ký cá biệt.</div>} type="info" />
 
             <Flex className="py-2" wrap justify="flex-end" align="center">
                 <Button type="primary" onClick={showAddModal}>

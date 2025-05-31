@@ -12,6 +12,7 @@ import {
     updateUserGroup,
 } from '~/services/userGroupService';
 import { getRoles } from '~/services/roleService';
+import useSystemConfig from '~/hooks/useSystemConfig';
 
 const { TextArea } = Input;
 
@@ -66,6 +67,16 @@ function UserGroup() {
         setFilters((prev) => ({ ...prev, pageNumb: newPage }));
     };
 
+    const { config } = useSystemConfig();
+
+    useEffect(() => {
+        if (config?.rowsPerPage) {
+            setFilters((prev) => ({
+                ...prev,
+                pageSize: config.rowsPerPage,
+            }));
+        }
+    }, [config]);
     const handleChangeRowsPerPage = (current, size) => {
         setFilters((prev) => ({
             ...prev,

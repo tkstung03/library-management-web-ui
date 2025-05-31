@@ -11,6 +11,7 @@ import {
     getBookListPdf,
     getBookPdf,
 } from '~/services/bookService';
+import useSystemConfig from '~/hooks/useSystemConfig';
 
 const options = [
     { value: 'bookCode', label: 'Số ĐKCB' },
@@ -56,6 +57,17 @@ function BookListByCode() {
             pageSize: size,
         }));
     };
+
+    const { config } = useSystemConfig();
+
+    useEffect(() => {
+        if (config?.rowsPerPage) {
+            setFilters((prev) => ({
+                ...prev,
+                pageSize: config.rowsPerPage,
+            }));
+        }
+    }, [config]);
 
     const handleSortChange = (pagination, filters, sorter) => {
         const sortOrder = sorter.order === 'ascend' ? true : sorter.order === 'descend' ? false : undefined;

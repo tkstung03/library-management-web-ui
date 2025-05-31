@@ -6,6 +6,7 @@ import { INITIAL_FILTERS, INITIAL_META } from '~/common/commonConstants';
 import { getBookBorrows } from '~/services/bookBorrowService';
 import { bookBorrowReceiptMapping } from '~/common/borrowConstants';
 import { bookStatusMapping } from '~/common/bookConstants';
+import useSystemConfig from '~/hooks/useSystemConfig';
 
 const options = [
     { value: 'receiptNumber', label: 'Số phiếu mượn' },
@@ -49,6 +50,17 @@ function ReturnHistory() {
             pageSize: size,
         }));
     };
+
+    const { config } = useSystemConfig();
+
+    useEffect(() => {
+        if (config?.rowsPerPage) {
+            setFilters((prev) => ({
+                ...prev,
+                pageSize: config.rowsPerPage,
+            }));
+        }
+    }, [config]);
 
     const handleSortChange = (pagination, filters, sorter) => {
         const sortOrder = sorter.order === 'ascend' ? true : sorter.order === 'descend' ? false : undefined;

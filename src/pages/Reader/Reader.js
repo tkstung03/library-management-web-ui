@@ -19,6 +19,7 @@ import {
 import ReaderForm from './ReaderForm';
 import { cardGender, cardStatus, cardTypes } from '~/common/cardConstants';
 import { getAllMajors } from '~/services/majorService';
+import useSystemConfig from '~/hooks/useSystemConfig';
 
 const options = [
     { value: 'cardNumber', label: 'Số thẻ' },
@@ -114,6 +115,17 @@ function Reader() {
             pageSize: size,
         }));
     };
+
+    const { config } = useSystemConfig();
+
+    useEffect(() => {
+        if (config?.rowsPerPage) {
+            setFilters((prev) => ({
+                ...prev,
+                pageSize: config.rowsPerPage,
+            }));
+        }
+    }, [config]);
 
     const handleSortChange = (pagination, filters, sorter) => {
         const sortOrder = sorter.order === 'ascend' ? true : sorter.order === 'descend' ? false : undefined;

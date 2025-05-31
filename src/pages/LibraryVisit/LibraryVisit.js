@@ -9,6 +9,7 @@ import images from '~/assets';
 import { INITIAL_FILTERS, INITIAL_META } from '~/common/commonConstants';
 import { closeLibrary, createLibraryVisit, getLibraryVisits } from '~/services/libraryVisitService';
 import { getReaderByCardNumber } from '~/services/readerService';
+import useSystemConfig from '~/hooks/useSystemConfig';
 
 function LibraryVisit() {
     const naviagate = useNavigate();
@@ -38,7 +39,17 @@ function LibraryVisit() {
             pageSize: size,
         }));
     };
+    const { config } = useSystemConfig();
 
+    useEffect(() => {
+        if (config?.rowsPerPage) {
+            setFilters((prev) => ({
+                ...prev,
+                pageSize: config.rowsPerPage,
+            }));
+        }
+    }, [config]);
+    
     const handleSortChange = (pagination, filters, sorter) => {
         const sortOrder = sorter.order === 'ascend' ? true : sorter.order === 'descend' ? false : undefined;
         setFilters((prev) => ({

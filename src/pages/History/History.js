@@ -3,6 +3,7 @@ import queryString from 'query-string';
 import { Button, DatePicker, Flex, Input, Select, Space, Table, Tag } from 'antd';
 import { getLogs } from '~/services/logService';
 import { INITIAL_FILTERS, INITIAL_META } from '~/common/commonConstants';
+import useSystemConfig from '~/hooks/useSystemConfig';
 
 const options = [
     { value: 'user', label: 'Người dùng' },
@@ -53,6 +54,17 @@ function History() {
             pageSize: size,
         }));
     };
+
+    const { config } = useSystemConfig();
+
+    useEffect(() => {
+        if (config?.rowsPerPage) {
+            setFilters((prev) => ({
+                ...prev,
+                pageSize: config.rowsPerPage,
+            }));
+        }
+    }, [config]);
 
     const handleSortChange = (pagination, filters, sorter) => {
         const sortOrder = sorter.order === 'ascend' ? true : sorter.order === 'descend' ? false : undefined;

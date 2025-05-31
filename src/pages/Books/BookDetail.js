@@ -12,7 +12,6 @@ import { getBookDetailForUser } from '~/services/bookDefinitionService';
 import { addToCart } from '~/services/cartService';
 import useAuth from '~/hooks/useAuth';
 import { RESOURCE_URL } from '~/common/commonConstants';
-import { Color } from 'antd/es/color-picker';
 
 const cx = classNames.bind(styles);
 

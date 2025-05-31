@@ -30,6 +30,7 @@ const newsTypeOptions = [
     { title: 'Tài liệu học tập', value: 'Tài liệu học tập' },
     { title: 'Văn học nghệ thuật', value: 'Văn học nghệ thuật' },
     { title: 'Tin trong ngày', value: 'Tin trong ngày' },
+    { title: 'Review sách', value: 'Review sách' },
     { title: 'Không xác định', value: 'Không xác định' },
 ];
 

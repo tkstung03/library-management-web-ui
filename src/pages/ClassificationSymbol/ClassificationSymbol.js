@@ -11,6 +11,7 @@ import {
     toggleActiveFlag,
     updateClassificationSymbol,
 } from '~/services/classificationSymbolService';
+import useSystemConfig from '~/hooks/useSystemConfig';
 
 function ClassificationSymbol() {
     const [meta, setMeta] = useState(INITIAL_META);
@@ -64,6 +65,17 @@ function ClassificationSymbol() {
         }));
     };
 
+    const { config } = useSystemConfig();
+
+    useEffect(() => {
+        if (config?.rowsPerPage) {
+            setFilters((prev) => ({
+                ...prev,
+                pageSize: config.rowsPerPage,
+            }));
+        }
+    }, [config]);
+    
     const handleSortChange = (pagination, filters, sorter) => {
         const sortOrder = sorter.order === 'ascend' ? true : sorter.order === 'descend' ? false : undefined;
         setFilters((prev) => ({

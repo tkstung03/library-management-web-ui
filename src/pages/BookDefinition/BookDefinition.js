@@ -174,7 +174,7 @@ function BookDefinition() {
             key: 'activeFlag',
             render: (text, record) => (
                 <Space>
-                    {text ? 'Đang sử dụng' : 'Tạm dùng'}
+                    {text ? 'Đang sử dụng' : 'Tạm dừng'}
                     <Switch checked={text} onChange={(checked) => handleToggleActiveFlag(checked, record)} />
                 </Space>
             ),

@@ -11,6 +11,7 @@ import {
     toggleActiveFlag,
     updateCategoryGroup,
 } from '~/services/categoryGroupService';
+import useSystemConfig from '~/hooks/useSystemConfig';
 
 function BookCategoryGroup() {
     const [meta, setMeta] = useState(INITIAL_META);
@@ -55,6 +56,17 @@ function BookCategoryGroup() {
     const handleChangePage = (newPage) => {
         setFilters((prev) => ({ ...prev, pageNumb: newPage }));
     };
+
+    const { config } = useSystemConfig();
+
+    useEffect(() => {
+        if (config?.rowsPerPage) {
+            setFilters((prev) => ({
+                ...prev,
+                pageSize: config.rowsPerPage,
+            }));
+        }
+    }, [config]);
 
     const handleChangeRowsPerPage = (current, size) => {
         setFilters((prev) => ({
@@ -244,7 +256,7 @@ function BookCategoryGroup() {
                 message={
                     <div>
                         Nhóm loại sách dùng để thống kê các loại sách có chung một đặc điểm. <br /> Ví dụ:&nbsp;
-                        <b>Loại sách Pháp luật, Loại sách Đạo đức</b> cùng thuộc nhóm <b>Sách tham khảo</b>.&nbsp;
+                        <b>Loại sách Truyện tranh, Truyện cổ tích</b> cùng thuộc nhóm <b>Sách thiếu nhi</b>.&nbsp;
                     </div>
                 }
                 type="info"
