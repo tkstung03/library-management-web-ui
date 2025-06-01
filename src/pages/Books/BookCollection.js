@@ -127,11 +127,8 @@ function BookCollection() {
 
             <div className="container sectionspace">
                 <div className="row">
-                    <div className="col-12 col-md-3">
-                        <Button block>Sách được mượn nhiều nhất</Button>
-                    </div>
 
-                    <div className="col-12 col-md-9">
+                    <div className="col-12 col-md-12">
                         <div className="row mb-4">
                             <div className="col-12">
                                 <SectionHeader
@@ -157,7 +154,7 @@ function BookCollection() {
                                 <Spin />
                             ) : entityData.length > 0 ? (
                                 entityData.map((data, index) => (
-                                    <div key={index} className="col-12 col-sm-6 col-md-4 col-lg-3">
+                                    <div key={index} className="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
                                         <Product data={data} messageApi={messageApi} />
                                     </div>
                                 ))

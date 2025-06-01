@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
-import 'swiper/css/pagination';
 
 import { Navigation } from 'swiper/modules';
 
@@ -18,16 +16,15 @@ import queryString from 'query-string';
 
 const cx = classNames.bind(styles);
 
-function ProductList({ filters, title, subtitle, messageApi }) {
+function ProductList({ filters, title, subtitle, messageApi, currentBookId }) {
     const navigate = useNavigate();
 
-    const [entityData, setEntityData] = useState(null);
+    const [entityData, setEntityData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [errorMessage, setErrorMessage] = useState(null);
 
-    const handleViewAll = () => {
-        navigate('/books');
-    };
+    // Unique ID for Swiper navigation
+    const id = subtitle?.toLowerCase().replace(/\s+/g, '-') || Math.random().toString(36).substring(2, 9);
 
     useEffect(() => {
         const fetchEntities = async () => {
@@ -36,7 +33,11 @@ function ProductList({ filters, title, subtitle, messageApi }) {
             try {
                 const params = queryString.stringify(filters);
                 const response = await getBookByBookDefinitionsForUser(params);
-                const { items } = response.data.data;
+                let { items } = response.data.data;
+
+                if (currentBookId) {
+                    items = items.filter((book) => book.id !== currentBookId);
+                }
                 setEntityData(items);
             } catch (error) {
                 setErrorMessage(error.message);
@@ -48,6 +49,9 @@ function ProductList({ filters, title, subtitle, messageApi }) {
         fetchEntities();
     }, [filters]);
 
+    const prevClass = `.custom-prev-${id}`;
+    const nextClass = `.custom-next-${id}`;
+
     return (
         <section className={cx('wrapper', 'sectionspace')}>
             <div className="container">
@@ -56,8 +60,11 @@ function ProductList({ filters, title, subtitle, messageApi }) {
                         <SectionHeader
                             subtitle={subtitle}
                             title={title}
-                            onViewAll={handleViewAll}
-                            // Bạn có thể điều chỉnh các nút điều hướng thủ công nếu cần
+                            onViewAll={() => navigate('/books')}
+                            onPrev={() => document.querySelector(prevClass)?.click()}
+                            onNext={() => document.querySelector(nextClass)?.click()}
+                            prevClass={`custom-prev-${id}`}
+                            nextClass={`custom-next-${id}`}
                         />
                     </div>
                 </div>
@@ -72,13 +79,15 @@ function ProductList({ filters, title, subtitle, messageApi }) {
                                 modules={[Navigation]}
                                 spaceBetween={20}
                                 slidesPerView={5}
-                                autoplay={{
-                                    delay: 2500,
-                                    disableOnInteraction: false,
+                                slidesPerGroup={1}
+                                loop={false}
+                                navigation={{
+                                    prevEl: prevClass,
+                                    nextEl: nextClass,
                                 }}
-                                navigation
+                                watchOverflow
                                 grabCursor
-                                className={cx('swiper-container')}
+                                className={cx('swiper-container', 'p-3')}
                             >
                                 {entityData.map((data, index) => (
                                     <SwiperSlide key={index}>

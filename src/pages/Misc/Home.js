@@ -64,10 +64,7 @@ function Home() {
             <Slider />
 
             <ProductList
-                filters={{
-                    sortBy: 'id',
-                    sortType: 'DESC',
-                }}
+                filters={{ sortBy: 'id', sortType: 'DESC' }}
                 title={<h2 className="mb-0">Sách mới phát hành</h2>}
                 subtitle={'Sách mới'}
                 messageApi={messageApi}
@@ -98,9 +95,7 @@ function Home() {
             </Parallax>
 
             <ProductList
-                filters={{
-                    categoryId: '10',
-                }}
+                filters={{ categoryId: '17' }}
                 title={<h2 className="mb-0">Sách Văn học - Tiểu thuyết kinh điển</h2>}
                 subtitle={'Lựa chọn của mọi người'}
                 messageApi={messageApi}
@@ -119,10 +114,11 @@ function Home() {
                 subtitle={'Những câu chuyện đi cùng tuổi thơ'}
                 messageApi={messageApi}
             />
+
             <ProductList
-                filters={{ categoryId: '14' }}
-                title={<h2 className="mb-0">Truyện Tranh</h2>}
-                subtitle={'Giải trí, hài hước và sáng tạo không giới hạn'}
+                filters={{ categoryId: '30' }}
+                title={<h2 className="mb-0">Sách giáo khoa</h2>}
+                subtitle={'Ươm mầm tri thức'}
                 messageApi={messageApi}
             />
 

@@ -13,7 +13,8 @@ import useSystemConfig from '~/hooks/useSystemConfig';
 
 const options = [
     { value: 'title', label: 'Nhan đề' },
-    { value: 'bookCode', label: 'Kí hiệu' },
+    { value: 'bookNumber', label: 'Kí hiệu tên sách' },
+    { value: 'author', label: 'Tác giả' },
 ];
 
 function BookDefinition() {

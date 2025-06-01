@@ -16,7 +16,6 @@ function Product({ className, data, messageApi }) {
 
     const bookUrl = `/books/${data.id}`;
 
-
     const handleAddToCart = async (id) => {
         if (isAuthenticated) {
             try {
@@ -34,7 +33,8 @@ function Product({ className, data, messageApi }) {
     };
 
     return (
-        <div className={cx('postbook', className)}>
+        <div className={cx('postbook', 'cardWrapper', className)}>
+            {' '}
             <div className={cx('featureimg')}>
                 <Link to={bookUrl}>
                     <img src={data.imageUrl || images.placeimg} alt={data.title} />
@@ -44,7 +44,6 @@ function Product({ className, data, messageApi }) {
                     <div className={cx('tag-saleoff')}>HOT</div>
                 </div>
             </div>
-
             <div className={cx('content')}>
                 <div className={cx('title')}>
                     <Link to={bookUrl}>{data.title}</Link>

@@ -8,7 +8,7 @@ import styles from '~/styles/SectionHeader.module.scss';
 
 const cx = classNames.bind(styles);
 
-function SectionHeader({ title, subtitle, onViewAll, onPrev, onNext }) {
+function SectionHeader({ title, subtitle, onViewAll, onPrev, onNext, prevClass, nextClass }) {
     const showButtons = onViewAll || onPrev || onNext;
 
     return (
@@ -20,17 +20,19 @@ function SectionHeader({ title, subtitle, onViewAll, onPrev, onNext }) {
 
             {showButtons && (
                 <Space>
-                    <Button shape="round" onClick={onViewAll}>
-                        Xem Tất Cả
-                    </Button>
+                    {onViewAll && (
+                        <Button shape="round" onClick={onViewAll}>
+                            Xem Tất Cả
+                        </Button>
+                    )}
 
-                    <Button shape="circle" onClick={onPrev}>
-                        <MdNavigateBefore />
-                    </Button>
+                    {onPrev && (
+                        <Button shape="circle" icon={<MdNavigateBefore />} className={prevClass} onClick={onPrev} />
+                    )}
 
-                    <Button shape="circle" onClick={onNext}>
-                        <MdNavigateNext />
-                    </Button>
+                    {onNext && (
+                        <Button shape="circle" icon={<MdNavigateNext />} className={nextClass} onClick={onNext} />
+                    )}
                 </Space>
             )}
         </div>
@@ -43,6 +45,8 @@ SectionHeader.propTypes = {
     onViewAll: PropTypes.func,
     onPrev: PropTypes.func,
     onNext: PropTypes.func,
+    prevClass: PropTypes.string,
+    nextClass: PropTypes.string,
 };
 
 export default SectionHeader;

@@ -12,6 +12,7 @@ import { getBookDetailForUser } from '~/services/bookDefinitionService';
 import { addToCart } from '~/services/cartService';
 import useAuth from '~/hooks/useAuth';
 import { RESOURCE_URL } from '~/common/commonConstants';
+import ProductList from '~/components/ProductList';
 
 const cx = classNames.bind(styles);
 
@@ -100,10 +101,7 @@ function BookDetail() {
 
             <div className="container sectionspace">
                 <div className="row mb-4">
-                    <div className="col-3">
-                        <Button block>Sách được mượn nhiều nhất</Button>
-                    </div>
-                    <div className="col-9">
+                    <div className="col-10">
                         {isLoading ? (
                             <>Loading</>
                         ) : errorMessage ? (
@@ -111,7 +109,8 @@ function BookDetail() {
                         ) : (
                             <div className={cx('content')}>
                                 <div className="row">
-                                    <div className="col-3">
+                                    <div className="col-1"></div>
+                                    <div className="col-4">
                                         <img
                                             className={cx('image')}
                                             src={entityData.imageUrl || images.placeimg}
@@ -121,7 +120,8 @@ function BookDetail() {
                                             Đăng ký mượn
                                         </Button>
                                     </div>
-                                    <div className="col-9">
+                                    
+                                    <div className="col-7">
                                         <ul className={cx('category')}>
                                             <li>Số lượng sách còn trong thư viện: {entityData.bookCount}</li>
                                         </ul>
@@ -192,7 +192,7 @@ function BookDetail() {
                                                             href={RESOURCE_URL + entityData.pdfUrl}
                                                             target="_blank"
                                                             rel="noopener noreferrer"
-                                                            style={{color:'red'}}
+                                                            style={{ color: 'red' }}
                                                         >
                                                             TẠI ĐÂY
                                                         </a>
@@ -206,6 +206,17 @@ function BookDetail() {
                         )}
                     </div>
                 </div>
+                {entityData && entityData.category && (
+                    <div className="row mb-4">
+                        <ProductList
+                            filters={{ categoryId: String(entityData.category.id) }}
+                            
+                            title={<h2 className="mb-0">Sách tương tự</h2>}
+                            subtitle={'Có thể bạn cũng thích'}
+                            messageApi={messageApi}
+                        />
+                    </div>
+                )}
             </div>
         </>
     );
