@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Button, Input, message, Upload } from 'antd';
+import { Button, Input, message, Upload, Image } from 'antd';
 import { MdOutlineFileUpload } from 'react-icons/md';
 import ReactQuill from 'react-quill';
 import { useFormik } from 'formik';
+import images from '~/assets';
 import * as yup from 'yup';
 import { handleError } from '~/utils/errorHandler';
 import { formats, modules as defaultModules } from '~/common/editorConfig';
@@ -26,6 +27,7 @@ const defaultValue = {
     email: '',
     pageTitle: '',
     motto: '',
+    logo: '',
     introduction: '',
 };
 
@@ -56,16 +58,18 @@ function LibraryInfo() {
 
     const [fileList, setFileList] = useState([]);
     const [messageApi, contextHolder] = message.useMessage();
+    const [previewLogo, setPreviewLogo] = useState('');
 
     const handleUploadChange = ({ file, fileList }) => {
         setFileList(fileList);
 
         const { originFileObj } = file;
-        if (!originFileObj) {
-            return;
-        }
+        if (!originFileObj) return;
+
+        const previewUrl = URL.createObjectURL(originFileObj);
 
         formik.setFieldValue('logo', originFileObj);
+        setPreviewLogo(previewUrl);
     };
 
     const handleSubmit = async (values, { setSubmitting }) => {
@@ -434,7 +438,14 @@ function LibraryInfo() {
                         <label htmlFor="logo">Logo:</label>
                     </div>
                     <div className="col-md-6">
+                        <Image
+                            className='row'
+                            width={200}
+                            src={previewLogo || (typeof formik.values.logo === 'string' ? formik.values.logo : '')}
+                            fallback={images.placeimg}
+                        />
                         <Upload
+                            className='row'
                             accept="image/*"
                             fileList={fileList}
                             maxCount={1}

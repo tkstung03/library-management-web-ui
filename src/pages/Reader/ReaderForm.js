@@ -53,6 +53,8 @@ function ReaderForm({
         >
             <Form form={form} layout="vertical" onFinish={onSubmit} initialValues={initialValues}>
                 <Row gutter={16}>
+
+                    {/* Ảnh thẻ */}
                     <Col span={8} className="text-center">
                         <Image width={200} src={form.getFieldValue('previousImage')} fallback={images.placeimg} />
 

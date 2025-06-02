@@ -315,7 +315,7 @@ function BorrowBook() {
             key: 'fullName',
         },
         {
-            title: 'Số lượng mượn',
+            title: 'SL mượn',
             dataIndex: 'books',
             key: 'books',
         },

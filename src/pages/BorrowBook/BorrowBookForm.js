@@ -66,31 +66,31 @@ function BorrowBookForm() {
     const [messageApi, contextHolder] = message.useMessage();
 
     const handleSubmit = async (values, { setSubmitting }) => {
-        try {
-            const formattedValues = {
-                ...values,
-                borrowDate: values.borrowDate ? values.borrowDate.format('YYYY-MM-DD') : null,
-                dueDate: values.dueDate ? values.dueDate.format('YYYY-MM-DD') : null,
-            };
+    try {
+        const formattedValues = {
+            ...values,
+            borrowDate: values.borrowDate ? values.borrowDate.format('YYYY-MM-DD') : null,
+            dueDate: values.dueDate ? values.dueDate.format('YYYY-MM-DD') : null,
+        };
 
-            let response;
-            if (id) {
-                response = await updateBorrowReceipt(id, formattedValues);
-            } else {
-                response = await createBorrowReceipt(formattedValues);
-            }
-
-            if (response.status === 200 || response.status === 201) {
-                setTimeout(() => {
-                    navigate('/admin/circulation/borrow');
-                }, 1500);
-            }
-        } catch (error) {
-            handleError(error, formik, messageApi);
-        } finally {
-            setSubmitting(false);
+        let response;
+        if (id) {
+            response = await updateBorrowReceipt(id, formattedValues);
+        } else {
+            response = await createBorrowReceipt(formattedValues);
         }
-    };
+
+        if (response.status === 200 || response.status === 201) {
+            await messageApi.success('Lưu thành công!', 1.5); // 1.5 giây
+            navigate('/admin/circulation/borrow');
+        }
+    } catch (error) {
+        handleError(error, formik, messageApi);
+    } finally {
+        setSubmitting(false);
+    }
+};
+
 
     const formik = useFormik({
         initialValues: defaultValue,

@@ -5,6 +5,7 @@ import { Button, Col, DatePicker, Flex, Form, message, Row, Space, Table } from 
 import { INITIAL_FILTERS, INITIAL_META } from '~/common/commonConstants';
 import { getLibraryVisits } from '~/services/libraryVisitService';
 import { getLibraryVisitReportPdf } from '~/services/libraryVisitService';
+import {getLibraryVisitReportExcel} from '~/services/libraryVisitService';
 
 function VisitorStatistics() {
     const naviagate = useNavigate();
@@ -61,9 +62,43 @@ function VisitorStatistics() {
                 newTab.focus();
                 //URL.revokeObjectURL(url);
             }
-            
         } catch (error) {
             const errorMessage = error.response?.data?.message || 'Có lỗi xảy ra khi xuất dữ liệu.';
+            messageApi.error(errorMessage);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const handleExportExcel = async () => {
+        if (!filters.startDate || !filters.endDate) {
+            messageApi.error('Vui lòng chọn ngày bắt đầu và kết thúc trước khi xuất Excel.');
+            return;
+        }
+
+        setIsLoading(true);
+        try {
+            const query = queryString.stringify({
+                startDate: filters.startDate,
+                endDate: filters.endDate,
+            });
+
+            const response = await getLibraryVisitReportExcel(query, { responseType: 'blob' });
+
+            if (response.status === 200) {
+                const blob = new Blob([response.data], {
+                    type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                });
+                const url = window.URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', 'thong_ke_luot_vao_ra.xlsx');
+                document.body.appendChild(link);
+                link.click();
+                link.remove();
+            }
+        } catch (error) {
+            const errorMessage = error.response?.data?.message || 'Có lỗi xảy ra khi xuất file Excel.';
             messageApi.error(errorMessage);
         } finally {
             setIsLoading(false);
@@ -95,11 +130,11 @@ function VisitorStatistics() {
                 const response = await getLibraryVisits(params);
                 const { meta, items } = response.data.data;
                 // Đảm bảo không có kết quả thì entityData là []
-            setEntityData(Array.isArray(items) ? items : []);
-            setMeta(meta || INITIAL_META);
+                setEntityData(Array.isArray(items) ? items : []);
+                setMeta(meta || INITIAL_META);
             } catch (error) {
                 setErrorMessage(error.message);
-                setEntityData([]); 
+                setEntityData([]);
             } finally {
                 setIsLoading(false);
             }
@@ -196,7 +231,7 @@ function VisitorStatistics() {
                                     Thống kê
                                 </Button>
                                 <Button onClick={handlePrintReport}>In báo cáo</Button>
-                                <Button>Xuất file</Button>
+                                <Button onClick={handleExportExcel}>Xuất file</Button>
                             </Space>
                         </Form.Item>
                     </Col>

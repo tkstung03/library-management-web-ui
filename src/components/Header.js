@@ -127,13 +127,13 @@ function Header() {
 
             <div className="container py-4">
                 <div className="row align-items-center">
-                    <div className="col-4 d-flex align-items-center gap-3">
+                    <div className="col-3 d-flex align-items-center gap-3">
                         <img src={logo} alt="logo" style={{ height: 50 }} />
-                        <h1 className="mb-0" style={{ fontSize: '32px'}}>
-                            Library Manager
+                        <h1 className="mb-0 bold" style={{ fontSize: '36px'}}>
+                            LibWorld
                         </h1>
                     </div>
-                    <div className="col-8">
+                    <div className="col-9">
                         <Space.Compact className={cx('search-bar', 'w-100')}>
                             <Select
                                 size="large"

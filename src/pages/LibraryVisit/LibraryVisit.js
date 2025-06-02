@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
 import queryString from 'query-string';
@@ -25,6 +25,7 @@ function LibraryVisit() {
     const [messageApi, contextHolder] = message.useMessage();
 
     const [form] = Form.useForm();
+    const cardNumberInputRef = useRef(null);
 
     const currentDate = useMemo(() => dayjs().locale('vi').format('DD [tháng] MM, YYYY'), []);
 
@@ -49,7 +50,7 @@ function LibraryVisit() {
             }));
         }
     }, [config]);
-    
+
     const handleSortChange = (pagination, filters, sorter) => {
         const sortOrder = sorter.order === 'ascend' ? true : sorter.order === 'descend' ? false : undefined;
         setFilters((prev) => ({
@@ -94,6 +95,10 @@ function LibraryVisit() {
                     }
                 });
                 form.resetFields();
+                setTimeout(() => {
+                    const input = document.querySelector('input[name="cardNumber"]');
+                    input?.focus();
+                }, 0);
             }
         } catch (error) {
             const errorMessage = error.response?.data?.message || 'Có lỗi xảy ra khi cập nhật dữ liệu.';
@@ -214,7 +219,7 @@ function LibraryVisit() {
                         name="cardNumber"
                         rules={[{ required: true, message: 'Vui lòng nhập số thẻ!' }]}
                     >
-                        <Input placeholder="Nhập số thẻ" />
+                        <Input placeholder="Nhập số thẻ" ref={cardNumberInputRef} />
                     </Form.Item>
                     <Form.Item>
                         <Button type="primary" icon={<IoMdPersonAdd />} htmlType="submit">
@@ -248,7 +253,7 @@ function LibraryVisit() {
                             { key: '5', label: 'Giới tính', children: selectedReader.gender || 'N/A' },
                             { key: '6', label: 'Số điện thoại', children: selectedReader.phoneNumber || 'N/A' },
                             { key: '7', label: 'Địa chỉ', children: selectedReader.address || 'N/A' },
-                            { key: '8', label: 'Chuyên ngành', children: selectedReader.major?.name || 'N/A' }
+                            { key: '8', label: 'Chuyên ngành', children: selectedReader.major?.name || 'N/A' },
                         ]}
                     />
                 </Col>

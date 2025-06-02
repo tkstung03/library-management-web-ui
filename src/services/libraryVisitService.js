@@ -25,3 +25,11 @@ export const getLibraryVisitReportPdf = (params) => {
     });
 };
 
+export const getLibraryVisitReportExcel = (query, config = {}) => {
+  return axiosPrivate.get(`library-visits/export-excel?${query}`, {
+    ...config,
+    responseType: 'blob', 
+  });
+};
+
+
