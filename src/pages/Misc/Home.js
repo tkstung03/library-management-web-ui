@@ -15,6 +15,7 @@ import classNames from 'classnames/bind';
 import styles from '~/styles/Home.module.scss';
 import PostList from '~/components/PostList';
 import { getLibraryInfoStats } from '~/services/statisticsService';
+import { getMostBorrowedBooksForUser } from '~/services/bookDefinitionService';
 import { useNavigate } from 'react-router-dom';
 import ScrollToTopButton from '~/components/ScrollToTopButton';
 
@@ -65,9 +66,10 @@ function Home() {
             <Slider />
 
             <ProductList
-                filters={{ sortBy: 'id', sortType: 'DESC' }}
-                title={<h2 className="mb-0">Sách mới phát hành</h2>}
-                subtitle={'Sách mới'}
+                fetchProducts={getMostBorrowedBooksForUser}
+                filters={{ pageNum: '0', pageSize: '10' }}
+                title={<h2 className="mb-0">Sách đã được mượn nhiều nhất</h2>}
+                subtitle={'Danh sách sách được mượn nhiều'}
                 messageApi={messageApi}
             />
 
@@ -118,7 +120,7 @@ function Home() {
 
             <ProductList
                 filters={{ categoryId: '30' }}
-                title={<h2 className="mb-0">Sách giáo khoa</h2>}
+                title={<h2 className="mb-0">Sách Giáo khoa - Giáo trình</h2>}
                 subtitle={'Ươm mầm tri thức'}
                 messageApi={messageApi}
             />

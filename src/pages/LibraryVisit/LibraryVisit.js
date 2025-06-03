@@ -92,7 +92,7 @@ function LibraryVisit() {
                     });
                     return found ? newData : [data, ...prevData];
                 });
-                
+
                 form.resetFields();
                 setTimeout(() => {
                     const input = document.querySelector('input[name="cardNumber"]');

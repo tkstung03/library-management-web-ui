@@ -16,7 +16,7 @@ import queryString from 'query-string';
 
 const cx = classNames.bind(styles);
 
-function ProductList({ filters, title, subtitle, messageApi, currentBookId }) {
+function ProductList({ fetchProducts = getBookByBookDefinitionsForUser , filters, title, subtitle, messageApi, currentBookId }) {
     const navigate = useNavigate();
 
     const [entityData, setEntityData] = useState([]);
@@ -32,7 +32,7 @@ function ProductList({ filters, title, subtitle, messageApi, currentBookId }) {
             setErrorMessage(null);
             try {
                 const params = queryString.stringify(filters);
-                const response = await getBookByBookDefinitionsForUser(params);
+                const response = await fetchProducts(params);
                 let { items } = response.data.data;
 
                 if (currentBookId) {
@@ -60,7 +60,7 @@ function ProductList({ filters, title, subtitle, messageApi, currentBookId }) {
                         <SectionHeader
                             subtitle={subtitle}
                             title={title}
-                            // onViewAll={() => navigate('/books')}
+                            //onViewAll={() => navigate('/books')}
                             onPrev={() => document.querySelector(prevClass)?.click()}
                             onNext={() => document.querySelector(nextClass)?.click()}
                             prevClass={`custom-prev-${id}`}

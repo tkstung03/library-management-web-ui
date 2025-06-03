@@ -20,6 +20,10 @@ export const getBookByBookDefinitionsForUser = (params) => {
     return httpRequest.get(`book-definitions/books?${params}`);
 };
 
+export const getMostBorrowedBooksForUser = (params) => {
+    return httpRequest.get(`book-definitions/books/most-borrowed?${params}`);
+};
+
 export const getBookDetailForUser = (id) => {
     return httpRequest.get(`book-definitions/books/${id}`);
 };
