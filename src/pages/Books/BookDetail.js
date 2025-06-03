@@ -13,6 +13,7 @@ import { addToCart } from '~/services/cartService';
 import useAuth from '~/hooks/useAuth';
 import { RESOURCE_URL } from '~/common/commonConstants';
 import ProductList from '~/components/ProductList';
+import ScrollToTopButton from '~/components/ScrollToTopButton';
 
 const cx = classNames.bind(styles);
 
@@ -120,7 +121,7 @@ function BookDetail() {
                                             Đăng ký mượn
                                         </Button>
                                     </div>
-                                    
+
                                     <div className="col-7">
                                         <ul className={cx('category')}>
                                             <li>Số lượng sách còn trong thư viện: {entityData.bookCount}</li>
@@ -182,10 +183,9 @@ function BookDetail() {
                                                 <span>ISBN:</span>
                                                 <span>{entityData.isbn || 'N/A'}</span>
                                             </li>
-
-                                            {entityData.pdfUrl && (
-                                                <li>
-                                                    <span>Xem trước PDF: </span>
+                                            <li>
+                                                <span>Xem trước PDF: </span>
+                                                {entityData.pdfUrl ? (
                                                     <span>
                                                         {' '}
                                                         <a
@@ -197,8 +197,10 @@ function BookDetail() {
                                                             TẠI ĐÂY
                                                         </a>
                                                     </span>
-                                                </li>
-                                            )}
+                                                ) : (
+                                                    <span>Chưa có bản xem trước cho ấn phẩm này</span>
+                                                )}
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -206,18 +208,17 @@ function BookDetail() {
                         )}
                     </div>
                 </div>
-                {entityData && entityData.category && (
-                    <div className="row mb-4">
-                        <ProductList
-                            filters={{ categoryId: String(entityData.category.id) }}
-                            
-                            title={<h2 className="mb-0">Sách tương tự</h2>}
-                            subtitle={'Có thể bạn cũng thích'}
-                            messageApi={messageApi}
-                        />
-                    </div>
+                {entityData?.category?.id && (
+                    <ProductList
+                        filters={{ categoryId: String(entityData.category.id) }}
+                        title={<h2 className="mb-0">Sách tương tự</h2>}
+                        subtitle={'Có thể bạn cũng thích'}
+                        messageApi={messageApi}
+                        currentBookId={entityData.id}
+                    />
                 )}
             </div>
+            <ScrollToTopButton />
         </>
     );
 }

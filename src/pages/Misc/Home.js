@@ -16,6 +16,7 @@ import styles from '~/styles/Home.module.scss';
 import PostList from '~/components/PostList';
 import { getLibraryInfoStats } from '~/services/statisticsService';
 import { useNavigate } from 'react-router-dom';
+import ScrollToTopButton from '~/components/ScrollToTopButton';
 
 const cx = classNames.bind(styles);
 
@@ -108,12 +109,12 @@ function Home() {
                 messageApi={messageApi}
             />
 
-            <ProductList
+            {/* <ProductList
                 filters={{ categoryId: '13' }}
                 title={<h2 className="mb-0">Truyện Cổ Tích</h2>}
                 subtitle={'Những câu chuyện đi cùng tuổi thơ'}
                 messageApi={messageApi}
-            />
+            /> */}
 
             <ProductList
                 filters={{ categoryId: '30' }}
@@ -135,6 +136,7 @@ function Home() {
             </Parallax>
 
             <PostList />
+            <ScrollToTopButton/>
         </>
     );
 }

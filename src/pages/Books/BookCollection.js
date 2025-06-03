@@ -9,6 +9,7 @@ import Product from '~/components/Product';
 import SectionHeader from '~/components/SectionHeader';
 import { INITIAL_FILTERS, INITIAL_META } from '~/common/commonConstants';
 import { getBookByBookDefinitionsForUser } from '~/services/bookDefinitionService';
+import ScrollToTopButton from '~/components/ScrollToTopButton';
 
 const options = [
     { value: 'title', label: 'Tên sách' },
@@ -180,6 +181,7 @@ function BookCollection() {
                     </div>
                 </div>
             </div>
+            <ScrollToTopButton/>
         </>
     );
 }

@@ -130,7 +130,7 @@ function Header() {
                     <div className="col-3 d-flex align-items-center gap-3">
                         <img src={logo} alt="logo" style={{ height: 50 }} />
                         <h1 className="mb-0 bold" style={{ fontSize: '36px'}}>
-                            LibWorld
+                            Library
                         </h1>
                     </div>
                     <div className="col-9">

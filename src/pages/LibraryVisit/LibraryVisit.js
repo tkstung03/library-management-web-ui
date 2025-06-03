@@ -82,18 +82,17 @@ function LibraryVisit() {
                 await fetchNewReaderInfo(data.cardNumber);
 
                 setEntityData((prevData) => {
-                    const existingIndex = prevData.findIndex((item) => item.id === data.id);
-                    if (existingIndex !== -1) {
-                        return prevData.map((item, index) => {
-                            if (index === existingIndex) {
-                                return data;
-                            }
-                            return item;
-                        });
-                    } else {
-                        return [data, ...prevData.slice(0, -1)];
-                    }
+                    let found = false;
+                    const newData = prevData.map((item) => {
+                        if (item.id === data.id) {
+                            found = true;
+                            return data;
+                        }
+                        return item;
+                    });
+                    return found ? newData : [data, ...prevData];
                 });
+                
                 form.resetFields();
                 setTimeout(() => {
                     const input = document.querySelector('input[name="cardNumber"]');

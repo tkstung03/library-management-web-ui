@@ -10,6 +10,7 @@ import classNames from 'classnames/bind';
 import styles from '~/styles/NewsArticleDetail.module.scss';
 import SocialIcons from '~/components/SocialIcons';
 import Post from '~/components/Post';
+import ScrollToTopButton from '~/components/ScrollToTopButton';
 
 const cx = classNames.bind(styles);
 
@@ -145,6 +146,7 @@ function NewsArticleDetail() {
                     </div>
                 </div>
             </div>
+            <ScrollToTopButton/>
         </>
     );
 }

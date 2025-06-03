@@ -47,6 +47,7 @@ function ReaderForm({
         try {
             const query = queryString.stringify({
                 keyword: keyword || undefined,
+                searchBy: 'name',
                 activeFlag: true,
             });
 

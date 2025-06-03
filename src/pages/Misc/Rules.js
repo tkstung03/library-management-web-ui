@@ -7,6 +7,7 @@ import classNames from 'classnames/bind';
 import styles from '~/styles/Rules.module.scss';
 import { useEffect, useState } from 'react';
 import { getLibraryRules } from '~/services/systemSettingService';
+import ScrollToTopButton from '~/components/ScrollToTopButton';
 
 const cx = classNames.bind(styles);
 
@@ -72,6 +73,7 @@ function Rules() {
                     </div>
                 </div>
             </div>
+            <ScrollToTopButton/>
         </>
     );
 }

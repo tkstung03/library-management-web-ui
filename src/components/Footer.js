@@ -20,7 +20,7 @@ function Footer() {
                     <div className="col-12">
                         <div className="d-flex align-items-center gap-3 py-5">
                             <img src={logo} alt="logo" style={{ height: 50 }} />
-                            <h1 className="mb-0">LibWorld</h1>
+                            <h1 className="mb-0">Library</h1>
                         </div>
 
                         <ul className={cx('contactinfo')}>

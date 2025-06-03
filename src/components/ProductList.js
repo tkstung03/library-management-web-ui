@@ -60,7 +60,7 @@ function ProductList({ filters, title, subtitle, messageApi, currentBookId }) {
                         <SectionHeader
                             subtitle={subtitle}
                             title={title}
-                            onViewAll={() => navigate('/books')}
+                            // onViewAll={() => navigate('/books')}
                             onPrev={() => document.querySelector(prevClass)?.click()}
                             onNext={() => document.querySelector(nextClass)?.click()}
                             prevClass={`custom-prev-${id}`}

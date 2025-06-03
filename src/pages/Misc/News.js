@@ -6,6 +6,7 @@ import Breadcrumb from '~/components/Breadcrumb';
 import Post from '~/components/Post';
 import SectionHeader from '~/components/SectionHeader';
 import { getNewsArticlesForUser } from '~/services/newsArticlesService';
+import ScrollToTopButton from '~/components/ScrollToTopButton';
 
 function News() {
     const [entityData, setEntityData] = useState(null);
@@ -87,6 +88,7 @@ function News() {
                     </div>
                 </div>
             </div>
+            <ScrollToTopButton/>
         </>
     );
 }
