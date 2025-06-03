@@ -1,10 +1,14 @@
-import { useState } from 'react';
-import { Image, Input, Modal, Row, Select } from 'antd';
-import { Button, Col, DatePicker, Form, Upload } from 'antd';
+import { useState, useEffect } from 'react';
+import { Image, Input, Modal, Row, Select, Button, Col, DatePicker, Form, Upload} from 'antd';
 import { MdOutlineFileUpload } from 'react-icons/md';
 import images from '~/assets';
 import { REGEXP_FULL_NAME, REGEXP_PASSWORD, REGEXP_PHONE_NUMBER } from '~/common/commonConstants';
 import { cardGender, cardStatus, cardTypes } from '~/common/cardConstants';
+import { getAllMajors } from '~/services/majorService';
+import queryString from 'query-string';
+import { message } from 'antd';
+
+const { Option } = Select;
 
 function ReaderForm({
     title,
@@ -18,6 +22,7 @@ function ReaderForm({
     messageApi,
     isEdit = false,
     majors = [],
+    active
 }) {
     const [fileList, setFileList] = useState([]);
 
@@ -33,6 +38,31 @@ function ReaderForm({
         form.setFieldValue('previousImage', url);
         form.setFieldValue('image', originFileObj);
     };
+
+    const [majorOptions, setMajorOptions] = useState([]);
+    const [fetchingMajors, setFetchingMajors] = useState(false);
+
+    const fetchMajors = async (keyword = '') => {
+        setFetchingMajors(true);
+        try {
+            const query = queryString.stringify({
+                keyword: keyword || undefined,
+                activeFlag: true,
+            });
+
+            const response = await getAllMajors(query);
+            const items = response?.data?.items || [];
+            setMajorOptions(items);
+        } catch (error) {
+            message.error(error.message || 'Lỗi khi tải chuyên ngành');
+        } finally {
+            setFetchingMajors(false);
+        }
+    };
+
+    useEffect(() => {
+        fetchMajors();
+    }, [active]);
 
     return (
         <Modal
@@ -53,7 +83,6 @@ function ReaderForm({
         >
             <Form form={form} layout="vertical" onFinish={onSubmit} initialValues={initialValues}>
                 <Row gutter={16}>
-
                     {/* Ảnh thẻ */}
                     <Col span={8} className="text-center">
                         <Image width={200} src={form.getFieldValue('previousImage')} fallback={images.placeimg} />
@@ -253,11 +282,18 @@ function ReaderForm({
                                     name="majorId"
                                     rules={[{ required: true, message: 'Vui lòng chọn chuyên ngành' }]}
                                 >
-                                    <Select placeholder="Chọn chuyên ngành" allowClear>
-                                        {majors.map((major, index) => (
-                                            <Select.Option key={index} value={major.id}>
+                                    <Select
+                                        showSearch
+                                        placeholder="Chọn chuyên ngành"
+                                        allowClear
+                                        onSearch={fetchMajors}
+                                        loading={fetchingMajors}
+                                        filterOption={false}
+                                    >
+                                        {majorOptions.map((major) => (
+                                            <Option key={major.id} value={major.id} label={major.name}>
                                                 {major.name}
-                                            </Select.Option>
+                                            </Option>
                                         ))}
                                     </Select>
                                 </Form.Item>
@@ -282,9 +318,9 @@ function ReaderForm({
                                 >
                                     <Select placeholder="Chọn trạng thái thẻ">
                                         {cardStatus.map((card) => (
-                                            <Select.Option key={card.value} value={card.value}>
+                                            <Option key={card.value} value={card.value}>
                                                 {card.label}
-                                            </Select.Option>
+                                            </Option>
                                         ))}
                                     </Select>
                                 </Form.Item>
