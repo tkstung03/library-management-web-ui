@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import queryString from 'query-string';
-import { Button, Col, DatePicker, Flex, Form, message, Row, Space, Table } from 'antd';
+import { Button, Col, DatePicker, Flex, Form, message, Row, Select, Space, Table } from 'antd';
 import { INITIAL_FILTERS, INITIAL_META } from '~/common/commonConstants';
 import { getLibraryVisits } from '~/services/libraryVisitService';
 import { getLibraryVisitReportPdf } from '~/services/libraryVisitService';
-import {getLibraryVisitReportExcel} from '~/services/libraryVisitService';
+import { getLibraryVisitReportExcel } from '~/services/libraryVisitService';
+import { getAllMajors } from '~/services/majorService';
+import FormSelect from '~/components/FormSelect';
 
 function VisitorStatistics() {
     const naviagate = useNavigate();
@@ -13,6 +15,10 @@ function VisitorStatistics() {
     const [filters, setFilters] = useState(INITIAL_FILTERS);
 
     const [entityData, setEntityData] = useState(null);
+
+    const [selectedMajor, setSelectedMajor] = useState(null);
+    const [majorOptions, setMajorOptions] = useState([]);
+    const [fetchingMajors, setFetchingMajors] = useState(false);
 
     const [isLoading, setIsLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState(null);
@@ -52,6 +58,7 @@ function VisitorStatistics() {
             const query = queryString.stringify({
                 startDate: filters.startDate,
                 endDate: filters.endDate,
+                majorId: selectedMajor || undefined,
             });
             const response = await getLibraryVisitReportPdf(query, { responseType: 'blob' });
 
@@ -121,12 +128,35 @@ function VisitorStatistics() {
         }
     };
 
+    const fetchMajors = async (keyword = '') => {
+        setFetchingMajors(true);
+        try {
+            const query = queryString.stringify({
+                keyword: keyword || undefined,
+                searchBy: 'name',
+                activeFlag: true,
+            });
+
+            const response = await getAllMajors(query);
+            const items = response?.data?.items || [];
+            setMajorOptions(items);
+        } catch (error) {
+            message.error(error.message || 'Lỗi khi tải chuyên ngành');
+        } finally {
+            setFetchingMajors(false);
+        }
+    };
+
     useEffect(() => {
         const fetchStatistics = async () => {
             setIsLoading(true);
             setErrorMessage(null);
             try {
-                const params = queryString.stringify(filters);
+                const params = queryString.stringify({
+                    ...filters,
+                    searchBy: 'major',
+                    keyword: selectedMajor || undefined,
+                });
                 const response = await getLibraryVisits(params);
                 const { meta, items } = response.data.data;
                 // Đảm bảo không có kết quả thì entityData là []
@@ -143,7 +173,12 @@ function VisitorStatistics() {
         if (filters.startDate && filters.endDate) {
             fetchStatistics();
         }
-    }, [filters]);
+    }, [filters, selectedMajor]);
+
+    useEffect(() => {
+        fetchMajors();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const columns = [
         {
@@ -204,7 +239,7 @@ function VisitorStatistics() {
 
             <Form name="visitor_statistics" onFinish={onFinish} layout="vertical">
                 <Row gutter={16} justify="center">
-                    <Col span={6}>
+                    <Col span={4}>
                         <Form.Item
                             label="Từ ngày"
                             name="startDate"
@@ -213,7 +248,7 @@ function VisitorStatistics() {
                             <DatePicker className="w-100" />
                         </Form.Item>
                     </Col>
-                    <Col span={6}>
+                    <Col span={4}>
                         <Form.Item
                             label="Đến ngày"
                             name="endDate"
@@ -222,16 +257,34 @@ function VisitorStatistics() {
                             <DatePicker className="w-100" />
                         </Form.Item>
                     </Col>
+
+                    <Col span={4}>
+                        <Form.Item label="Chuyên ngành" name="majorId">
+                            <Select
+                                showSearch
+                                allowClear
+                                placeholder="Chọn ngành học"
+                                onSearch={fetchMajors}
+                                onChange={setSelectedMajor}
+                                value={selectedMajor}
+                                loading={fetchingMajors}
+                                filterOption={false}
+                                options={majorOptions}
+                                fieldNames={{ label: 'name', value: 'id' }}
+                                className="w-100"
+                            />
+                        </Form.Item>
+                    </Col>
                 </Row>
                 <Row gutter={16} justify="center">
-                    <Col span={6}>
+                    <Col span={7}>
                         <Form.Item>
                             <Space>
                                 <Button type="primary" htmlType="submit">
                                     Thống kê
                                 </Button>
                                 <Button onClick={handlePrintReport}>In báo cáo</Button>
-                                <Button onClick={handleExportExcel}>Xuất file</Button>
+                                <Button onClick={handleExportExcel}>Xuất file Excel</Button>
                             </Space>
                         </Form.Item>
                     </Col>

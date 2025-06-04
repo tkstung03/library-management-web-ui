@@ -285,7 +285,6 @@ function BookListByCode() {
             key: '4',
             icon: <GrPrint />,
             label: 'Danh mục sách',
-            disabled: selectedRowKeys.length === 0,
             onClick: openBookListPdf,
         },
     ];

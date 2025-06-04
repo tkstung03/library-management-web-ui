@@ -121,7 +121,7 @@ function BookDetail() {
                                             Đăng ký mượn
                                         </Button>
                                     </div>
-
+                                    
                                     <div className="col-7">
                                         <ul className={cx('category')}>
                                             <li>Số lượng sách còn trong thư viện: {entityData.bookCount}</li>
@@ -187,8 +187,8 @@ function BookDetail() {
                                                 <span>Kí hiệu tên sách:</span>
                                                 <span>{entityData.bookNumber || 'N/A'}</span>
                                             </li>
-                                            <li>
-                                                <span>Xem trước PDF: </span>
+                                                <li>
+                                                    <span>Xem trước PDF: </span>
                                                 {entityData.pdfUrl ? (
                                                     <span>
                                                         {' '}
@@ -206,7 +206,7 @@ function BookDetail() {
                                                 )}
                                             </li>
                                             <li>
-                                                <span>Mã ĐKCB:</span>
+                                                <span>Mã ĐKCB khả dụng:</span>
                                                 <span style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>
                                                     {entityData.bookCodes && entityData.bookCodes.length > 0
                                                         ? entityData.bookCodes.join(', ')
@@ -221,13 +221,14 @@ function BookDetail() {
                     </div>
                 </div>
                 {entityData?.category?.id && (
-                    <ProductList
-                        filters={{ categoryId: String(entityData.category.id) }}
-                        title={<h2 className="mb-0">Sách tương tự</h2>}
-                        subtitle={'Có thể bạn cũng thích'}
-                        messageApi={messageApi}
+                        <ProductList
+                            filters={{ categoryId: String(entityData.category.id) }}
+                            
+                            title={<h2 className="mb-0">Sách tương tự</h2>}
+                            subtitle={'Có thể bạn cũng thích'}
+                            messageApi={messageApi}
                         currentBookId={entityData.id}
-                    />
+                        />
                 )}
             </div>
             <ScrollToTopButton />

@@ -163,7 +163,7 @@ function Dashboard() {
                                     margin={{ top: 20, right: 30, left: 20, bottom: 80 }}
                                     barCategoryGap={20}
                                 >
-                                    <CartesianGrid strokeDasharray="3 3" />
+                            <CartesianGrid strokeDasharray="3 3" />
                                     <XAxis
                                         dataKey="categoryName"
                                         angle={-45}
@@ -171,33 +171,33 @@ function Dashboard() {
                                         interval={0}
                                         height={80}
                                     />
-                                    <YAxis allowDecimals={false} />
-                                    <Tooltip
-                                        contentStyle={{ backgroundColor: '#f9f9f9', borderRadius: '5px' }}
-                                        formatter={(value) => [`${value} ấn phẩm`, 'Số lượng']}
-                                    />
-                                    <Legend verticalAlign="top" />
-                                    <Bar dataKey="count" name="Ấn phẩm" radius={[4, 4, 0, 0]} isAnimationActive={true}>
-                                        {categoryStatistics.map((_, index) => (
+                            <YAxis allowDecimals={false} />
+                            <Tooltip
+                                contentStyle={{ backgroundColor: '#f9f9f9', borderRadius: '5px' }}
+                                formatter={(value) => [`${value} ấn phẩm`, 'Số lượng']}
+                            />
+                            <Legend verticalAlign="top" />
+                            <Bar dataKey="count" name="Ấn phẩm" radius={[4, 4, 0, 0]} isAnimationActive={true}>
+                                {categoryStatistics.map((_, index) => (
                                             <Cell
                                                 key={`cell-${index}`}
                                                 fill={CHART_COLORS[index % CHART_COLORS.length]}
                                             />
-                                        ))}
-                                        <LabelList
-                                            dataKey="count"
-                                            position="top"
+                                ))}
+                                <LabelList
+                                    dataKey="count"
+                                    position="top"
                                             style={{
                                                 fill: '#333',
                                                 fontWeight: 'bold',
                                                 fontSize: 12,
                                             }}
-                                        />
-                                    </Bar>
-                                </BarChart>
-                            </ResponsiveContainer>
-                        </div>
-                    </div>
+                                />
+                            </Bar>
+                        </BarChart>
+                    </ResponsiveContainer>
+                </div>
+            </div>
                 </div>
             </div>
 
