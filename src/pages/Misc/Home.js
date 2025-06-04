@@ -68,7 +68,7 @@ function Home() {
             <ProductList
                 fetchProducts={getMostBorrowedBooksForUser}
                 filters={{ pageNum: '0', pageSize: '10' }}
-                title={<h2 className="mb-0">Sách đã được mượn nhiều nhất</h2>}
+                title={<h2 className="mb-0">Sách được mượn nhiều nhất</h2>}
                 subtitle={'Danh sách sách được mượn nhiều'}
                 messageApi={messageApi}
             />
@@ -118,13 +118,6 @@ function Home() {
                 messageApi={messageApi}
             /> */}
 
-            <ProductList
-                filters={{ categoryId: '30' }}
-                title={<h2 className="mb-0">Sách Giáo khoa - Giáo trình</h2>}
-                subtitle={'Ươm mầm tri thức'}
-                messageApi={messageApi}
-            />
-
             <Parallax bgImage={backgrounds.bgparallax5} strength={500}>
                 <div className="container py-5">
                     <div className="row justify-content-center">
@@ -137,8 +130,22 @@ function Home() {
                 </div>
             </Parallax>
 
+            <ProductList
+                filters={{ categoryId: '30' }}
+                title={<h2 className="mb-0">Sách Giáo khoa - Giáo trình</h2>}
+                subtitle={'Tri thức là sức mạnh'}
+                messageApi={messageApi}
+            />
+
+            <ProductList
+                filters={{ categoryId: '21' }}
+                title={<h2 className="mb-0">Sách Luyện thi - Từ vựng & Ngữ pháp</h2>}
+                subtitle={'Trau dồi trình độ ngoại ngữ của bạn'}
+                messageApi={messageApi}
+            />
+
             <PostList />
-            <ScrollToTopButton/>
+            <ScrollToTopButton />
         </>
     );
 }

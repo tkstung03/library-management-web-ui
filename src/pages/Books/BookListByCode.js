@@ -260,13 +260,13 @@ function BookListByCode() {
     };
 
     const items = [
-        {
-            key: '1',
-            icon: <GrPrint />,
-            label: 'Phích chuẩn ISBD',
-            disabled: selectedRowKeys.length === 0,
-            onClick: openBookPdf,
-        },
+        // {
+        //     key: '1',
+        //     icon: <GrPrint />,
+        //     label: 'Phích chuẩn ISBD',
+        //     disabled: selectedRowKeys.length === 0,
+        //     onClick: openBookPdf,
+        // },
         {
             key: '2',
             icon: <GrPrint />,
